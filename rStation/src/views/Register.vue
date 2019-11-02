@@ -64,6 +64,11 @@
                     password: this.pass,
                     firstname: this.firstName,
                     surname: this.lastName
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 21a244d3d838844688dbd4266c704126eb3e9358
                   })
                   .then(response => {
                       localStorage.data = response.data;

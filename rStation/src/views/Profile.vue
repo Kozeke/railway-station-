@@ -84,6 +84,10 @@ export default {
           this.last_name = response.data.surname;
           this.email = response.data.mail;
           this.password = response.data.password;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 21a244d3d838844688dbd4266c704126eb3e9358
       })
       .catch(e => {
           console.log(e);
@@ -111,6 +115,10 @@ export default {
               .then(response => {
                   console.log(response.data);
                   this.$router.push('/profile');
+<<<<<<< HEAD
+=======
+
+>>>>>>> 21a244d3d838844688dbd4266c704126eb3e9358
               })
               .catch(e => {
                   console.log(e);
