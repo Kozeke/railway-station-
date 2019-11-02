@@ -8,11 +8,11 @@
                     <div class="text-center">
                         <h3 class="dark-grey-text mb-5"><strong>Sign in</strong></h3>
                     </div>
-                        <mdb-input label="Your email" icon="envelope" type="email"/>
-                        <mdb-input label="Your password" icon="lock" type="password" containerClass="mb-0"/>
+                        <mdb-input v-model="email" label="Your email" icon="envelope" type="email"/>
+                        <mdb-input v-model="pass" label="Your password" icon="lock" type="password" containerClass="mb-0"/>
                         <p class="font-small blue-text d-flex justify-content-end pb-3">Forgot <a class="blue-text ml-1" @click="fPass = !fPass"> Password?</a></p>
                     <div class="text-center mb-3">
-                        <mdb-btn type="button" gradient="blue" rounded class="btn-block z-depth-1a" @click="$router.push('/profile')">Sign in</mdb-btn>
+                        <mdb-btn type="button" gradient="blue" rounded class="btn-block z-depth-1a" @click="loginForm()">Sign in</mdb-btn>
                     </div>
                     <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> or Sign in with:</p>
                     <div class="row my-3 d-flex justify-content-center">
@@ -63,6 +63,7 @@
 
 <script>
   import { mdbRow, mdbCol, mdbCard, mdbCardBody, mdbInput, mdbBtn, mdbIcon, mdbModal, mdbModalBody, mdbModalFooter } from 'mdbvue';
+  import axios from 'axios'
   export default {
     name: 'FormsPage',
     components: {
@@ -79,11 +80,37 @@
     },
     data() {
         return {
-            fPass: false,
-            fPassVerifyEmail: false,
-            showModal: false
+                fPass: false,
+                fPassVerifyEmail: false,
+                showModal: false,
+                email: null,
+                pass: null
             };
+        },
+    methods:{
+        loginForm() {
+            if(this.email.includes('@') && this.email.includes('.') && this.pass){
+                axios.post('http://localhost:8080/databind/api/login',{
+                    header:{
+                      'Access-Control-Allow-Origin': '*',
+                      "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
+                      "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+                    },
+                    mail: this.email,
+                    password: this.pass
+                  })
+                  .then(response => {
+                    localStorage.data = response.data;
+                      console.log(response.data);
+                      this.$router.push('/profile');
+                  })
+                  .catch(e => {
+                      console.log(e);
+                  })
+                //this.$router.push('/profile');
+            }
         }
+    }
   }
 </script>
 

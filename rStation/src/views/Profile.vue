@@ -33,7 +33,7 @@
                             <div class="form-group">
                                 <div class="col-sm-10">
                                     <label for="email"><h4>Email</h4></label>
-                                    <input v-model="email" :class="{ 'active': hasfocus == 4 }" @focusin="focusIn(4)" @focusout="focusOut(4)" type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email." :disabled="viewMode">
+                                    <input v-model="email" :class="{ 'active': hasfocus == 4 }" @focusin="focusIn(4)" @focusout="focusOut(4)" type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email." disabled>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -52,21 +52,46 @@
 </template>
 <script>
 import ProfileMenu from '../components/ProfileMenu.vue'
+import axios from 'axios'
 export default {
     components:{
         ProfileMenu
     },
     data() {
         return {
-                first_name: "Dimash",
-                last_name: "Kaldykhanov",
+                first_name: "",
+                last_name: "",
                 phone: "+77073206178",
-                email: "dimeke.1999@gmail.com", 
+                email: "", 
                 password: "",
                 hasfocus: 0,
-                viewMode: true
+                viewMode: true,
+                token: null
             };
         },
+    mounted(){
+        this.token = localStorage.data
+      axios.get('http://localhost:8080/databind/api/me?token=' + this.token,{
+        header:{
+          'Access-Control-Allow-Origin': '*',
+          "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
+          "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+        }
+      })
+      .then(response => {
+          console.log(response.data);
+          this.first_name = response.data.firstname;
+          this.last_name = response.data.surname;
+          this.email = response.data.mail;
+          this.password = response.data.password;
+
+      })
+      .catch(e => {
+          console.log(e);
+      })
+      // google-chrome --disable-web-security -–allow-file-access-from-fes --user-data-dir
+      
+  },
     methods: {
         focusIn(value) {
             this.hasfocus = value;
@@ -77,6 +102,22 @@ export default {
         },
         editData(value){
             this.viewMode = value;
+            if(value){
+              axios.put('http://localhost:8080/databind/api/me?token=' + this.token,{
+                    mail: this.email,
+                    password: this.password,
+                    firstname: this.first_name,
+                    surname: this.last_name
+              })
+              .then(response => {
+                  console.log(response.data);
+                  this.$router.push('/profile');
+
+              })
+              .catch(e => {
+                  console.log(e);
+              })
+          }
         }
     },
     computed: {
