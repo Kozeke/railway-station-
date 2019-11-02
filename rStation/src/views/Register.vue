@@ -8,12 +8,12 @@
                         <h3 class="dark-grey-text mb-5"><strong>Sign up</strong></h3>
                     </div>
                     <form novalidate="true" @submit.prevent="checkForm">
-                        <mdb-input v-model="firstName" type="text" icon="user" label="First name" required invalidFeedback="Please provide a valid city." validFeedback="Look's good." />
-                        <mdb-input v-model="lastName" label="Last name" icon="user" type="text" required invalidFeedback="Please provide a valid city." validFeedback="Look's good."/>
+                        <mdb-input v-model="firstName" type="text" icon="user" label="First name" required invalidFeedback="Please provide a valid name." validFeedback="Look's good." />
+                        <mdb-input v-model="lastName" label="Last name" icon="user" type="text" required invalidFeedback="Please provide a valid name." validFeedback="Look's good."/>
                         <mdb-input v-model="agentName" label="Agent name (Optional)" icon="store-alt" type="text"/> 
-                        <mdb-input v-model="email" label="Your email" icon="envelope" type="email" required invalidFeedback="Please provide a valid city." validFeedback="Look's good."/>
-                        <mdb-input v-model="pass" label="Confirm your email" icon="exclamation-triangle" type="text" required invalidFeedback="Please provide a valid city." validFeedback="Look's good."/>
-                        <mdb-input v-model="newPass" label="Your password" icon="lock" type="password" required invalidFeedback="Please provide a valid city." validFeedback="Look's good."/>
+                        <mdb-input v-model="email" label="Your email" icon="envelope" type="email" required invalidFeedback="Please provide a valid mail." validFeedback="Look's good."/>
+                        <mdb-input v-model="pass" label="Your password" icon="lock" type="password" required invalidFeedback="Please provide a valid password." validFeedback="Look's good."/>
+                        <mdb-input v-model="newPass" label="Your password" icon="lock" type="password" required invalidFeedback="Please provide a valid password." validFeedback="Look's good."/>
                         <div class="text-center mb-3">
                             <mdb-btn gradient="blue" type="submit" rounded class="btn-block z-depth-1a">Register</mdb-btn>
                         </div>
@@ -30,6 +30,7 @@
 
 <script>
   import { mdbRow, mdbCol, mdbCard, mdbCardBody, mdbInput, mdbBtn, mdbIcon, mdbModal, mdbModalBody, mdbModalFooter } from 'mdbvue';
+  import axios from 'axios'
   export default {
     name: 'FormsPage',
     components: {
@@ -57,8 +58,21 @@
     methods:{
         checkForm(event) {
             event.target.classList.add('was-validated');
-            if(this.firstName && this.lastName && this.agentName && this.email.includes('@') && this.email.includes('.') && this.pass && this.newPass){
-                this.$router.push('/profile');
+            if(this.firstName && this.lastName && this.email.includes('@') && this.email.includes('.') && this.pass && this.newPass){
+                axios.post('http://localhost:8080/databind/api/register',{
+                    mail: this.email,
+                    password: this.pass,
+                    firstname: this.firstName,
+                    surname: this.lastName
+                  })
+                  .then(response => {
+                      localStorage.data = response.data;
+                      this.$router.push('/profile');
+                  })
+                  .catch(e => {
+                      console.log(e);
+                  })
+               
             }
         }
     }
@@ -72,12 +86,10 @@
         .font-small {
             font-size: 0.8rem; 
         }
-
         .z-depth-1a {
             -webkit-box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25);
             box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25); 
         }
-
         .z-depth-1-half, .btn:hover {
             -webkit-box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
             box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15); 

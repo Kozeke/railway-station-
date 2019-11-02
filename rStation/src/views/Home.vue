@@ -62,21 +62,64 @@
             </div>
         </div>
     </section>
+    <div class="kz-map">
+        <Vuelayer :name="name"></Vuelayer>
+    </div>
+    <div v-if="showSchedule">
+       <table id="fifthTable">
+        <thead>
+          <tr>
+            <th>
+                Train
+            </th>
+            <th>
+                TrainName
+            </th>
+            <th>
+                TrainType
+            </th>
+            <th>
+                DepartureTime
+            </th>
+            <th>
+                ArrivalTime
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-bind:key="schedule" v-for="schedule in schedules">
+            <td>{{schedule.TravelInstanceID}}</td>
+            <td>{{schedule.TrainName}}</td>
+            <td>{{schedule.TrainType}}</td>
+            <td>{{schedule.DepartureTime}}</td>
+            <td>{{schedule.ArrivalTime}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
-
 <script>
+import RoadMap from '../components/RoadMap.vue'
+import Vuelayer from '../components/Vuelayer.vue'
 
 export default {
+    components:{
+        RoadMap,
+        Vuelayer
+    },
   data() {
     return {
+        showSchedule: false,
+        
       cities: [
-        'Almaty',
         'Astana',
-        'Semey',
-        'Shymkent',
-        'Taraz'
-      ]
+        'Karagandy',
+        'Balkash',
+        'Shu',
+        'Almaty'
+      ],
+       name: 'map',
     }
   },
   methods: {

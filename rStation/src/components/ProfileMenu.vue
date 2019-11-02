@@ -2,7 +2,7 @@
      <div class="col-sm-3">
         <ul class="menu-list">
             <li class="menu-list-item" @click="$router.push('/profile')"><i class="fas fa-user-circle"></i><span>Profile</span></li>
-            <li class="menu-list-item"><i class="fas fa-user-friends"></i><span>Staff</span></li>
+            <!-- <li class="menu-list-item"><i class="fas fa-user-friends"></i><span>Staff</span></li> -->
             <li class="menu-list-item" @click="$router.push('/bookings')"><i class="fas fa-history"></i><span>Bookings</span></li>
             <li class="menu-list-item" @click="$router.push('/settings')"><i class="fas fa-user-cog"></i><span>Settings</span></li>
             <li class="menu-list-item" @click="$router.push('/login')"><i class="fas fa-power-off"></i><span>Sign out</span></li>
@@ -47,4 +47,3 @@ export default {
         }
     }
 </style>
-
