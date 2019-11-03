@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="google-map" id="map"></div>
+        <input type="button" class="btn btn-danger" @click="saveRoad()" value="Add Road">
     </div>
 </template>
 
@@ -8,47 +9,10 @@
 import GoogleMapsLoader from 'google-maps'
     export default {
         name: 'google-map',
-        props: ['name'],
+         props: ['markers'],
         data() {
             return {
-                map: null,
-                markers: [
-                    {
-                        station: 'Astana',
-                        position: {
-                            latitude: 51.169392,
-                            longitude: 71.449074
-                        }
-                    },
-                    {
-                        station: 'Karaganda',
-                        position: {
-                            latitude: 49.8333282,
-                            longitude: 73.165802
-                        }
-                    },
-                    {
-                        station: 'Balkash',
-                        position: {
-                            latitude: 46.8481,
-                            longitude: 74.9950
-                        }
-                    },
-                    {
-                        station: 'Shu',
-                        position: {
-                            latitude: 45.890325,
-                            longitude: 73.070651
-                        }
-                    },
-                    {
-                        station: 'Almaty',
-                        position: {
-                            latitude: 43.238949,
-                            longitude: 76.889709
-                        }
-                    }
-                ]
+                map: null
             }
         },
         computed: {
@@ -57,23 +21,31 @@ import GoogleMapsLoader from 'google-maps'
             }
         },
         mounted: function () {
+            let stationFrom = null, stationTo = null;
+            if(localStorage.stationFrom){
+                stationFrom = localStorage.stationFrom;
+            }
+            if(localStorage.stationTo){
+                stationTo = localStorage.stationTo;
+            }
             var markers = this.markers;
             GoogleMapsLoader.KEY = 'AIzaSyC89sEOJvI6sPySOghfkKsm7FsLqfZZL98';
             GoogleMapsLoader.LIBRARIES = ['geometry', 'places'];
             GoogleMapsLoader.load(function(google) {
                 var options = {
                     zoom: 5,
-                    center:{ lat: 48.5, lng: 67},
+                    center:{ lat: 45.5, lng: 67},
                     mapTypeId: 'roadmap', //terrain, hybrid, satellite
-                    scrollwheel: true,
-                    fullscreenControl: true,
-                    clickableIcons: true,
-                    keyboardShortcuts: true,
+                    scrollwheel: false,
+                    fullscreenControl: false,
+                    clickableIcons: false,
+                    gestureHandling: 'greedy',
+                    keyboardShortcuts: false,
                     mapTypeControl: false,
                     streetViewControl: false,
                     styles: [
                         {elementType: 'geometry', stylers: [{color: '#ebe3cd'}]},
-                        {elementType: 'labels.text.fill', stylers: [{color: '#523735'}]},
+                        {elementType: 'labels.text.fill', stylers: [{color: '#523735', }]},
                         {elementType: 'labels.text.stroke', stylers: [{color: '#f5f1e6'}]},
                         {
                             featureType: 'administrative',
@@ -86,7 +58,7 @@ import GoogleMapsLoader from 'google-maps'
                             stylers: [{color: '#dcd2be'}]
                         },
                         {
-                            featureType: 'administrative.country.geometry',
+                            featureType: 'administrative.country',
                             elementType: 'geometry.stroke',
                             stylers: [{color: '#00004d'}]
                         },
@@ -188,108 +160,63 @@ import GoogleMapsLoader from 'google-maps'
                         ]
                 }
                 const map = new google.maps.Map(document.getElementById('map'), options);
-                
-                // var autocomplete = new google.maps.places.SearchBox(document.getElementById('searchTextField'), {
-                //     types: ['geocode']
-                // });
-                // autocomplete.addListener('place_changed', () => {
-                //     const place = this.autocomplete.getPlace()
-                //     console.log(place);
-                // });
-
-
-
-                var flightPlanCoordinates = [
-                    {lat: 51.169392, lng: 71.449074},
-                    {lat: 49.8333282, lng: 73.165802},
-                    {lat: 46.8481, lng: 74.9950},
-                    {lat: 45.890325, lng: 73.070651},
-                    {lat: 43.238949, lng: 76.889709}
-                ];
-                var flightPath = new google.maps.Polyline({
-                    path: flightPlanCoordinates,
-                    geodesic: true,
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 1.0,
-                    strokeWeight: 2
-                });
-                flightPath.setMap(map);
-                var poly = new google.maps.Polyline({
-                    strokeColor: '#000000',
-                    strokeOpacity: 1.0,
-                    strokeWeight: 3
-                });
-                poly.setMap(map);
-
-                // Add a listener for the click event
-                map.addListener('click', function (event){
-                    var path = poly.getPath();
-
-                    // Because path is an MVCArray, we can simply append a new coordinate
-                    // and it will automatically appear.
-                    path.push(event.latLng);
-
-                    // Add a new marker at the new plotted point on the polyline.
-                    var marker = new google.maps.Marker({
-                        position: event.latLng,
-                        title: '#' + path.getLength(),
-                        map: map
-                    });
-                });
-                
-                //**************************************************** */
-                
-                google.maps.event.addListener(map, "click", function (event) {
-                    var latitude = event.latLng.lat();
-                    var longitude = event.latLng.lng();
-                    console.log( latitude + ', ' + longitude );
-
-                    var radius = new google.maps.Circle({map: map,
-                        radius: 100,
-                        center: event.latLng,
-                        fillColor: '#777',
-                        fillOpacity: 0.1,
-                        strokeColor: '#AA0000',
-                        strokeOpacity: 0.8,
-                        strokeWeight: 4,
-                        draggable: true,    // Dragable
-                        editable: true      // Resizable
-                    });
-
-                    // Center of map
-                    //  map.panTo(new google.maps.LatLng(latitude,longitude));
-
-                });
+                var colorArray = ['#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080', '#ffffff', '#000000'];
+                var flightPlanCoordinates = [];
+                if(localStorage.allRoutes){
+                    flightPlanCoordinates =  JSON.parse(localStorage.getItem('allRoutes'))
+                }
+                let i = 0;
+                flightPlanCoordinates.forEach((flightPlanCoordinate) =>{
+                    let route = new Array();
+                    let j = 0;
+                    if(flightPlanCoordinate[0].station === stationFrom || flightPlanCoordinate[0].station === stationTo){
+                        route.push(flightPlanCoordinate[0]);
+                        j++;
+                    }
+                    for( let x = 1; x < flightPlanCoordinate.length; x++ ){
+                        if(j===1){
+                            route.push(flightPlanCoordinate[x]);
+                        }
+                        if(flightPlanCoordinate[x].station === stationFrom || flightPlanCoordinate[x].station === stationTo){
+                            j++;
+                        }
+                        if(j === 2){
+                            var flightPath = new google.maps.Polyline({
+                                path: route,
+                                geodesic: true,
+                                strokeColor: colorArray[i],
+                                strokeOpacity: 1.0,
+                                strokeWeight: 2
+                            });
+                            flightPath.setMap(map);
+                            x = flightPlanCoordinate.length;
+                            continue;
+                        }
+                    }
+                    i++;
+                })
                 markers.forEach((marker) => {
-                    google.maps.event.addDomListener(marker, 'click', function() {
-                        window.location.href = 'http://www.google.co.uk/';
-                    });
                     const position = new google.maps.LatLng(marker.position.latitude, marker.position.longitude)
                     marker.map = map,
                     marker.position = position,
-                    marker.label = {
-                        text: marker.station,
-                        fontSize: "18pt",
-                        fontWeight: "bold",
-                        width: "150px",
-                        color: "#4d2600"
-                    }
                     new google.maps.Marker(marker)  
                 })
             });
         },
         methods: {
-
+            
         }
     }
 </script>
 
 <style scoped>
     .google-map {
-        width: 960px;
-        height: 540px;
-        margin: 20px auto;
+        width: 100%;
+        height: 100%;
         background: gray;
         border: 8px solid #fff;
+        position: absolute;
+        z-index: 1;
+        top: 0;
     }
 </style>

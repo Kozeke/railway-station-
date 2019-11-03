@@ -4,10 +4,10 @@ import Home from './views/Home.vue'
 import About from './views/About.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
-import UserPage from './views/UserPage.vue'
 import Profile from './views/Profile.vue'
 import Bookings from './views/Bookings.vue'
 import Settings from './views/Settings.vue'
+import Routes from './views/Routes.vue'
 
 Vue.use(Router)
 
@@ -44,11 +44,6 @@ export default new Router({
       component: Register
     },
     {
-      path: '/user-page',
-      name: 'user-page',
-      component: UserPage
-    },
-    {
       path: '/profile',
       name: 'profile',
       component: Profile
@@ -62,6 +57,11 @@ export default new Router({
       path: '/settings',
       name: 'settings',
       component: Settings
+    },
+    {
+      path: '/routes',
+      name: 'routes',
+      component: Routes
     }
   ]
 })

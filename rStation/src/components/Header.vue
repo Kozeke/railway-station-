@@ -77,6 +77,7 @@ export default {
     -webkit-transition-duration: 700ms;
     transition-duration: 700ms;
     border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    background-color: rgba(14, 2, 35, 0.5);
 }
 
 .sticky{

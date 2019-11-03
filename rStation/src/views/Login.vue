@@ -89,26 +89,27 @@
         },
     methods:{
         loginForm() {
-            if(this.email.includes('@') && this.email.includes('.') && this.pass){
-                axios.post('http://localhost:8080/databind/api/login',{
-                    header:{
-                      'Access-Control-Allow-Origin': '*',
-                      "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
-                      "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-                    },
-                    mail: this.email,
-                    password: this.pass
-                  })
-                  .then(response => {
-                    localStorage.data = response.data;
-                      console.log(response.data);
-                      this.$router.push('/profile');
-                  })
-                  .catch(e => {
-                      console.log(e);
-                  })
-                //this.$router.push('/profile');
-            }
+            this.$router.push('/profile');
+            // if(this.email.includes('@') && this.email.includes('.') && this.pass){
+            //     axios.post('http://localhost:8080/databind/api/login',{
+            //         header:{
+            //           'Access-Control-Allow-Origin': '*',
+            //           "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
+            //           "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+            //         },
+            //         mail: this.email,
+            //         password: this.pass
+            //       })
+            //       .then(response => {
+            //         localStorage.data = response.data;
+            //           console.log(response.data);
+            //           this.$router.push('/profile');
+            //       })
+            //       .catch(e => {
+            //           console.log(e);
+            //       })
+            //     //this.$router.push('/profile');
+            // }
         }
     }
   }

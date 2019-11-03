@@ -19,21 +19,23 @@
                                                   <div class="row">
                                                       <div class="form-group col-4">
                                                         <label class="form-group"><p class="enter-names enter-names-to">From:</p>
-                                                            <select v-model="stationFrom" class="form-control" name="movies">
-                                                                <option v-for="station in stations" :key="station" :selected="stationFrom === station">{{station}}</option>
+                                                            <select @change="selectFrom($event)" class="form-control" name="movies">
+                                                                <option value="Station From" disabled selected>Station From</option>
+                                                                <option v-for="marker in markers" :key="marker.station" :selected="stationFrom === marker">{{marker.station}}</option>
                                                             </select>
                                                           </label>
                                                       </div>
                                                       <div class="form-group col-4">
                                                         <label class="form-group"><p class="enter-names enter-names-to">To:</p>
-                                                            <select v-model="stationTo" class="form-control" name="movies">
-                                                                <option v-for="station in stations" :key="station" :selected="stationTo === station" >{{station}}</option>
+                                                            <select @change="selectTo($event)" class="form-control" name="movies">
+                                                                <option value="Station To" disabled selected>Station To</option>
+                                                                <option v-for="marker in markers" :key="marker.station" :selected="stationTo === marker" >{{marker.station}}</option>
                                                             </select>
                                                           </label>
                                                       </div>
                                                       <div class="form-group form-group-date col-4">
                                                           <label class="form-group"><p class="enter-names enter-names-to">Date:</p> 
-                                                              <input :value="Date" @input="updateValue($event.target.value)" id="dateTime" class="form-control" type="date" required>
+                                                              <input :value="Datee" @input="updateValue($event.target.value)" id="dateTime" class="form-control" type="date" required>
                                                           </label>
                                                       </div>
                                                   </div>
@@ -52,10 +54,10 @@
         </div>
     </section>
     <div class="kz-map">
-        <Vuelayer :name="name"></Vuelayer>
+        <MainMap :markers="markers"></MainMap>
     </div>
     <div v-if="showSchedule">
-       <table id="fifthTable">
+       <!-- <table id="fifthTable">
         <thead>
           <tr>
             <th>
@@ -84,72 +86,137 @@
             <td>{{schedule.ArrivalTime}}</td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
     </div>
   </div>
 </template>
 <script>
-import RoadMap from '../components/RoadMap.vue'
-import Vuelayer from '../components/Vuelayer.vue'
+import MainMap from '../components/MainMap.vue'
 
 export default {
     components:{
-        RoadMap,
-        Vuelayer
+        MainMap
     },
   data() {
     return {
-        showSchedule: false,
-        
-      cities: [
-        'Astana',
-        'Karagandy',
-        'Balkash',
-        'Shu',
-        'Almaty'
-      ],
+        stationFrom: 'Station From',
+        stationTo: 'Station To',
+        Datee: null,
+        showSchedule: false,  
+        markers: [
+                    {
+                        station: 'Astana',
+                        position: {
+                            latitude: 51.169392,
+                            longitude: 71.449074
+                        }
+                    },
+                    {
+                        station: 'Karaganda',
+                        position: {
+                            latitude: 49.8333282,
+                            longitude: 73.165802
+                        }
+                    },
+                    {
+                        station: 'Jezkazgan',
+                        position: {
+                            latitude: 47.78333,
+                            longitude: 67.70000
+                        }
+                    },
+                    {
+                        station: 'Balkash',
+                        position: {
+                            latitude: 46.8481,
+                            longitude: 74.9950
+                        }
+                    },
+                    {
+                        station: 'Shu',
+                        position: {
+                            latitude: 45.890325,
+                            longitude: 73.070651
+                        }
+                    },
+                    {
+                        station: 'Almaty',
+                        position: {
+                            latitude: 43.238949,
+                            longitude: 76.889709
+                        }
+                    },
+                    {
+                        station: 'Taraz',
+                        position: {
+                            latitude: 42.896088,
+                            longitude: 71.398430
+                        }
+                    },
+                    {
+                        station: 'Shymkent',
+                        position: {
+                            latitude: 42.340782,
+                            longitude: 69.596329
+                        }
+                    },
+                    {
+                        station: 'Kyzylorda',
+                        position: {
+                            latitude: 44.8528,
+                            longitude: 65.5092
+                        }
+                    }
+                ],
        name: 'map',
     }
   },
   mounted(){
-      axios.get('http://localhost:8080/databind/api/stations',{
-        header:{
-          'Access-Control-Allow-Origin': '*',
-          "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
-          "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-        }
-      })
-      .then(response => {
-          this.stations = response.data;
-      })
-      .catch(e => {
-          console.log(e);
-      })
+    //   axios.get('http://localhost:8080/databind/api/stations',{
+    //     header:{
+    //       'Access-Control-Allow-Origin': '*',
+    //       "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
+    //       "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    //     }
+    //   })
+    //   .then(response => {
+    //       this.stations = response.data;
+    //   })
+    //   .catch(e => {
+    //       console.log(e);
+    //   })
 
       
   },
   methods: {
+    selectFrom(event){
+        localStorage.stationFrom =  event.target.value;
+    },
+     selectTo(event){
+        localStorage.stationTo =  event.target.value;
+    },
     updateValue(val){
-      this.Date = val;
+      this.Datee = val;
     },
     showSchedules(){
-      if(this.stationFrom && this.stationTo && this.Date){
-          axios.get('http://localhost:8080/databind/api/schedules?from='+ this.stationFrom + '&to=' + this.stationTo + '&date=' + this.Date,{
-            header:{
-              'Access-Control-Allow-Origin': '*',
-              "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
-              "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-            }
-          })
-          .then(response => {
-              this.schedules = response.data;
-              this.showSchedule = true;
-              console.log(response.data);
-          })
-          .catch(e => {
-              console.log(e);
-          })
-        }
+        location.reload();
+    //   if(this.stationFrom && this.stationTo && this.Date){
+    //       axios.get('http://localhost:8080/databind/api/schedules?from='+ this.stationFrom + '&to=' + this.stationTo + '&date=' + this.Date,{
+    //         header:{
+    //           'Access-Control-Allow-Origin': '*',
+    //           "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
+    //           "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    //         }
+    //       })
+    //       .then(response => {
+    //           this.schedules = response.data;
+    //           this.showSchedule = true;
+    //           console.log(response.data);
+    //       })
+    //       .catch(e => {
+    //           console.log(e);
+    //       })
+    //     }
     }
   },
   computed: {
@@ -173,8 +240,8 @@ export default {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(14, 2, 35, 0.5);
-    z-index: -1;
+    background-color: rgba(14, 2, 35, 0.3);
+    z-index: 10;
 }
 
 .bg-overlay-9:after {
@@ -193,6 +260,7 @@ export default {
   background-size: cover;
   border-radius: 5px;
   z-index: 20;
+  opacity: 0.8;
   max-height: 300px;
 }
 
@@ -223,10 +291,15 @@ export default {
 .booking-form .form-group {
   position: relative;
   margin: 0;
+  p{
+      color: #cc9966;
+      font-size: 18px;
+      font-weight: 500;
+  }
 }
 
 .booking-form .form-control {
-	background-color: rgba(255, 255, 255, 0.2);
+	background-color: rgba(255, 255, 255, 0.6);
 	height: 40px;
 	padding: 0px 16px;
 	border: none;
@@ -252,10 +325,6 @@ export default {
 .booking-form .form-control:focus {
 	-webkit-box-shadow: 0px 0px 0px 2px #ff8846;
 	box-shadow: 0px 0px 0px 2px #ff8846;
-}
-
-.booking-form input[type="date"].form-control:invalid {
-	color: rgba(255, 255, 255, 0.5);
 }
 
 .booking-form input[type="date"].form-control+.form-label {
@@ -336,6 +405,7 @@ export default {
 	opacity: 0.9;
 }
 
+// Schedule Table
 #fifthTable {
   font-family: "Open Sans", sans-serif;
   border: 3px solid #44475c;

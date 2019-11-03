@@ -2,7 +2,7 @@
      <div class="col-sm-3">
         <ul class="menu-list">
             <li class="menu-list-item" @click="$router.push('/profile')"><i class="fas fa-user-circle"></i><span>Profile</span></li>
-            <!-- <li class="menu-list-item"><i class="fas fa-user-friends"></i><span>Staff</span></li> -->
+            <li class="menu-list-item" @click="$router.push('/routes')"><i class="fas fa-map-marked-alt"></i><span>Routes</span></li>
             <li class="menu-list-item" @click="$router.push('/bookings')"><i class="fas fa-history"></i><span>Bookings</span></li>
             <li class="menu-list-item" @click="$router.push('/settings')"><i class="fas fa-user-cog"></i><span>Settings</span></li>
             <li class="menu-list-item" @click="$router.push('/login')"><i class="fas fa-power-off"></i><span>Sign out</span></li>
@@ -16,7 +16,8 @@ export default {
 </script>
 <style lang="scss" scoped>
     .menu-list{
-        margin: auto 12px;
+        margin: auto 12px auto 0;
+        padding: 0;
         .menu-list-item{
             list-style: none;
             border-top: 1px solid rgba(0,0,0,0.1);

@@ -84,10 +84,6 @@ export default {
           this.last_name = response.data.surname;
           this.email = response.data.mail;
           this.password = response.data.password;
-<<<<<<< HEAD
-=======
-
->>>>>>> 21a244d3d838844688dbd4266c704126eb3e9358
       })
       .catch(e => {
           console.log(e);
@@ -115,10 +111,6 @@ export default {
               .then(response => {
                   console.log(response.data);
                   this.$router.push('/profile');
-<<<<<<< HEAD
-=======
-
->>>>>>> 21a244d3d838844688dbd4266c704126eb3e9358
               })
               .catch(e => {
                   console.log(e);
@@ -135,6 +127,7 @@ export default {
     .container{
         margin: auto;
         margin-top: 138px;
+        max-width: 88% !important;
         background: #fff;
         border: 1px solid rgba(0,0,0,0.3);
         padding: 16px;

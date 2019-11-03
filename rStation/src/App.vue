@@ -42,10 +42,10 @@ export default {
   @import './assets/css.scss';
   body {
     font-family: Arial, Helvetica, sans-serif;
-    background-image: url(assets/img/bg-img/hero-1.jpg);
+    /* background-image: url(assets/img/bg-img/hero-1.jpg);
     background-position: center center;
     background-size: cover;
-    background-attachment: fixed;
+    background-attachment: fixed; */
   }
   
 </style>

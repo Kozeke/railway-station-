@@ -85,6 +85,7 @@ export default {
     .container{
         margin: auto;
         margin-top: 138px;
+        max-width: 88% !important;
         background: #fff;
         border: 1px solid rgba(0,0,0,0.3);
         padding: 16px;
