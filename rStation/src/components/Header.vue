@@ -74,8 +74,8 @@ export default {
     height: 100px;
     top: 0;
     left: 0;
-    -webkit-transition-duration: 700ms;
-    transition-duration: 700ms;
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
     border-bottom: 1px solid rgba(255, 255, 255, 0.4);
     background-color: rgba(14, 2, 35, 0.5);
 }
@@ -85,7 +85,8 @@ export default {
     height: 80px;
     z-index: 9999;
     border-bottom: 1px solid transparent;
-    transition: 1s;
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
 }
 
 .navbar-brand {

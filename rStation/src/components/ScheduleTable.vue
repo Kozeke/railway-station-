@@ -1,22 +1,34 @@
 <template >
   <table id="fifthTable">
-    <thead>
-      <tr>
-        <th>
-            TrainName
-        </th>
-        <th>
-            TrainType
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-bind:key="schedule" v-for="schedule in schedules">
-        <td>{{schedule.TrainName}}</td>
-        <td>{{schedule.TrainType}}</td>
-      </tr>
-    </tbody>
-  </table>
+        <thead>
+          <tr>
+            <th>
+                Train
+            </th>
+            <th>
+                TrainName
+            </th>
+            <th>
+                TrainType
+            </th>
+            <th>
+                DepartureTime
+            </th>
+            <th>
+                ArrivalTime
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-bind:key="schedule.TravelInstanceID" v-for="schedule in schedules">
+            <td>{{schedule.TravelInstanceID}}</td>
+            <td>{{schedule.TrainName}}</td>
+            <td>{{schedule.TrainType}}</td>
+            <td>{{schedule.DepartureTime}}</td>
+            <td>{{schedule.ArrivalTime}}</td>
+          </tr>
+        </tbody>
+      </table>
 </template>
 <script>
 /* eslint-disable */
@@ -29,7 +41,7 @@ export default {
     };
   },
   mounted(){
-    console.log(this.data);
+    console.log(this.schedules);
   }
 };
 </script>
@@ -37,26 +49,28 @@ export default {
 #fifthTable {
   font-family: "Open Sans", sans-serif;
   border: 3px solid #44475c;
-  margin: 80px auto auto auto;
+  margin: 20px auto auto auto;
   background: #fff;
+  position: relative;
+  z-index: 20;
+  opacity: 0.8;
+  width: 80%;
 }
 
 table th {
   text-transform: uppercase;
   text-align: left;
-  background: #44475c;
   color: #fff;
-  cursor: pointer;
   padding: 8px;
   min-width: 30px;
-}
-table th:hover {
-  background: #717699;
+  background: #44475c;
 }
 table td {
   text-align: left;
   padding: 8px;
-  border-right: 2px solid #7d82a8;
+  border-right: 2px solid #44475c;
+  background-color: rgba(68, 71, 92,0.5);
+  color: rgba(14, 2, 35, 0.9);
 }
 table td:last-child {
   border-right: none;
@@ -64,39 +78,6 @@ table td:last-child {
 table tbody tr:nth-child(2n) td {
   background: #d4d8f9;
 }
-
-table {
-  font-family: "Open Sans", sans-serif;
-  width: 750px;
-  border-collapse: collapse;
-  border: 3px solid #44475c;
-  margin: 10px 10px 0 10px;
-}
-
-table th {
-  text-transform: uppercase;
-  text-align: left;
-  background: #44475c;
-  color: #fff;
-  cursor: pointer;
-  padding: 8px;
-  min-width: 30px;
-}
-table th:hover {
-  background: #717699;
-}
-table td {
-  text-align: left;
-  padding: 8px;
-  border-right: 2px solid #7d82a8;
-}
-table td:last-child {
-  border-right: none;
-}
-table tbody tr:nth-child(2n) td {
-  background: #d4d8f9;
-}
-
 .arrow_down {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAaCAYAAABPY4eKAAAAAXNSR0IArs4c6QAAAvlJREFUSA29Vk1PGlEUHQaiiewslpUJiyYs2yb9AyRuJGm7c0VJoFXSX9A0sSZN04ULF12YEBQDhMCuSZOm1FhTiLY2Rky0QPlQBLRUsICoIN/0PCsGyox26NC3eTNn3r3n3TvnvvsE1PkwGo3yUqkkEQqFgw2Mz7lWqwng7ztN06mxsTEv8U0Aam5u7r5EInkplUol/f391wAJCc7nEAgE9Uwmkzo4OPiJMa1Wq6cFs7Ozt0H6RqlUDmJXfPIx+qrX69Ti4mIyHA5r6Wq1egND+j+IyW6QAUoul18XiUTDNHaSyGazKcZtdgk8wqhUKh9o/OMvsVgsfHJy0iWqVrcQNRUMBnd6enqc9MjISAmRP3e73T9al3XnbWNjIw2+KY1Gc3imsNHR0YV4PP5+d3e32h3K316TySQFoX2WyWR2glzIO5fLTSD6IElLNwbqnFpbWyO/96lCoai0cZjN5kfYQAYi5H34fL6cxWIZbya9iJyAhULBHAqFVlMpfsV/fHxMeb3er+Vy+VUzeduzwWC45XA4dlD/vEXvdDrj8DvURsYEWK3WF4FA4JQP9mg0WrHZbEYmnpa0NxYgPVObm5teiLABdTQT8a6vrwdRWhOcHMzMzCiXlpb2/yV6qDttMpkeshEzRk4Wo/bfoe4X9vb2amzGl+HoXNT29vZqsVi0sK1jJScG+Xx+HGkL4Tew2TPi5zUdQQt9otPpuBk3e0TaHmMDh1zS7/f780S0zX6Yni+NnBj09fUZUfvudDrNZN+GkQbl8Xi8RLRtHzsB9Hr9nfn5+SjSeWUCXC7XPq5kw53wsNogjZNohYXL2EljstvtrAL70/mVaW8Y4OidRO1/gwgbUMvcqGmcDc9aPvD1gnTeQ+0nmaInokRj0nHh+uvIiVOtVvt2a2vLv7Ky0tL3cRTXIcpPAwMDpq6R4/JXE4vFQ5FI5CN+QTaRSFCYc8vLy1l0rge4ARe5kJ/d27kYkLXoy2Jo4C7K8CZOsEBvb+9rlUp1xNXPL7v3IDwxvPD6AAAAAElFTkSuQmCC");
 }

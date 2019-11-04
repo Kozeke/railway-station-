@@ -239,7 +239,7 @@ import ProfileMenu from '../components/ProfileMenu.vue'
                 //     const place = this.autocomplete.getPlace()
                 //     console.log(place);
                 // });
-                var colorArray = ['#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080', '#ffffff', '#000000'];
+                var colorArray = ['#e6194b', '#3cb44b', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080', '#ffffff', '#000000'];
                 var flightPlanCoordinates = [];
                 if(localStorage.allRoutes){
                     flightPlanCoordinates =  JSON.parse(localStorage.getItem('allRoutes'))
@@ -250,14 +250,14 @@ import ProfileMenu from '../components/ProfileMenu.vue'
                         path: flightPlanCoordinate,
                         geodesic: true,
                         strokeColor: colorArray[i],
-                        strokeOpacity: 1.0,
-                        strokeWeight: 2
+                        strokeOpacity: 0.3,
+                        strokeWeight: 4
                     });
                     flightPath.setMap(map);
                     var poly = new google.maps.Polyline({
                         strokeColor: '#000000',
                         strokeOpacity: 1.0,
-                        strokeWeight: 3
+                        strokeWeight: 2
                     });
                     poly.setMap(map);
                     i++;
