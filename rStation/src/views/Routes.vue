@@ -3,6 +3,10 @@
         <div class="row menu-items">
             <ProfileMenu></ProfileMenu> 
             <div class="menu-data row col-sm-9">
+                <autocomplete-vue
+                    :list="stationsName"
+                    placeholder="Autocomplete"
+                ></autocomplete-vue>
                 <div class="google-map" id="map"></div>
                 <input type="button" class="btn btn-danger" @click="saveRoad()" value="Add Road">
             </div>
@@ -13,81 +17,23 @@
 <script>
 import GoogleMapsLoader from 'google-maps'
 import ProfileMenu from '../components/ProfileMenu.vue'
+import AutocompleteVue from 'autocomplete-vue'
+import json from '../assets/kz.json'
+
     export default {
         components:{
-            ProfileMenu
+            ProfileMenu,
+            'autocomplete-vue': AutocompleteVue
         },
         name: 'google-map',
-        props: ['name'],
         data() {
             return {
+                kzCities: json,
                 map: null,
                 clickedRoutes: null,
-                markers: [
-                    {
-                        station: 'Astana',
-                        position: {
-                            latitude: 51.169392,
-                            longitude: 71.449074
-                        }
-                    },
-                    {
-                        station: 'Karaganda',
-                        position: {
-                            latitude: 49.8333282,
-                            longitude: 73.165802
-                        }
-                    },
-                    {
-                        station: 'Jezkazgan',
-                        position: {
-                            latitude: 47.78333,
-                            longitude: 67.70000
-                        }
-                    },
-                    {
-                        station: 'Balkash',
-                        position: {
-                            latitude: 46.8481,
-                            longitude: 74.9950
-                        }
-                    },
-                    {
-                        station: 'Shu',
-                        position: {
-                            latitude: 45.890325,
-                            longitude: 73.070651
-                        }
-                    },
-                    {
-                        station: 'Almaty',
-                        position: {
-                            latitude: 43.238949,
-                            longitude: 76.889709
-                        }
-                    },
-                    {
-                        station: 'Taraz',
-                        position: {
-                            latitude: 42.896088,
-                            longitude: 71.398430
-                        }
-                    },
-                    {
-                        station: 'Shymkent',
-                        position: {
-                            latitude: 42.340782,
-                            longitude: 69.596329
-                        }
-                    },
-                    {
-                        station: 'Kyzylorda',
-                        position: {
-                            latitude: 44.8528,
-                            longitude: 65.5092
-                        }
-                    }
-                ]
+                // stationsName: ['Astana', 'Karaganda', 'Jezkazgan', 'Balkash', 'Shu', 'Almaty', 'Taraz', 'Shymkent', 'Kyzylorda'],
+                // stationsName: [{name: 'item1'}, {name: 'item2'}, {name: 'item3'}],
+                stationsName: null,
             }
         },
         computed: {
@@ -96,7 +42,8 @@ import ProfileMenu from '../components/ProfileMenu.vue'
             }
         },
         mounted: function () {
-            var markers = this.markers;
+            var stations = this.kzCities;
+            let stationsName = new Array();
             let clickedCoords = new Array();
             GoogleMapsLoader.KEY = 'AIzaSyC89sEOJvI6sPySOghfkKsm7FsLqfZZL98';   // Google map api KEY ( Change to your's )
             GoogleMapsLoader.LIBRARIES = ['geometry', 'places'];                // Library for more map options
@@ -227,7 +174,7 @@ import ProfileMenu from '../components/ProfileMenu.vue'
                             elementType: 'labels.text.fill',
                             stylers: [{color: '#92998d'}]
                         }
-                        ]
+                    ]
                 }
                 const map = new google.maps.Map(document.getElementById('map'), options);
                 
@@ -245,12 +192,12 @@ import ProfileMenu from '../components/ProfileMenu.vue'
                     flightPlanCoordinates =  JSON.parse(localStorage.getItem('allRoutes'))
                 }
                 let i = 0;
-                flightPlanCoordinates.forEach((flightPlanCoordinate) =>{
+                flightPlanCoordinates.forEach((flightPlanCoordinate) => {
                     var flightPath = new google.maps.Polyline({
                         path: flightPlanCoordinate,
                         geodesic: true,
                         strokeColor: colorArray[i],
-                        strokeOpacity: 0.3,
+                        strokeOpacity: 0.6,
                         strokeWeight: 4
                     });
                     flightPath.setMap(map);
@@ -319,12 +266,14 @@ import ProfileMenu from '../components/ProfileMenu.vue'
                 // });
                 
                 /*   Click on marker   */
-                markers.forEach((marker) => {
-                    google.maps.event.addDomListener(marker, 'click', function() {
+                stations.forEach((station) => {
+                    station.lat = parseFloat(station.lat);
+                    station.lng = parseFloat(station.lng);
+                    google.maps.event.addDomListener(station, 'click', function() {
                         clickedCoords.push({
-                            lat: marker.position.lat(),
-                            lng: marker.position.lng(),
-                            station: marker.station
+                            lat: station.lat,
+                            lng: station.lng,
+                            city: station.city
                             
                         });
                         // localStorage.setItem('routes', JSON.stringify(routes));
@@ -343,14 +292,18 @@ import ProfileMenu from '../components/ProfileMenu.vue'
                             strokeWeight: 3
                         });
                         poly.setMap(map);
-                        });
-                    const position = new google.maps.LatLng(marker.position.latitude, marker.position.longitude)
-                    marker.map = map,
-                    marker.position = position,
-                    new google.maps.Marker(marker)  
+                    });
+                    stationsName.push({
+                        name: station.city
+                    })
+                    const position = new google.maps.LatLng(station.lat, station.lng)
+                    station.map = map,
+                    station.position = position
+                    new google.maps.Marker(station)  
                 })
             });
             this.clickedRoutes = clickedCoords;
+            this.stationsName = stationsName;
         },
         methods: {
             saveRoad(){
@@ -360,7 +313,7 @@ import ProfileMenu from '../components/ProfileMenu.vue'
                     routes.push({
                         lat: route.lat,
                         lng: route.lng,
-                        station: route.station
+                        city: route.city
                     });
                 })
                 if(localStorage.allRoutes){

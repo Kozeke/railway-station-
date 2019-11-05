@@ -21,7 +21,7 @@
                                                         <label class="form-group"><p class="enter-names enter-names-to">From:</p>
                                                             <select @change="selectFrom($event)" class="form-control" name="movies">
                                                                 <option value="Station From" disabled selected>Station From</option>
-                                                                <option v-for="marker in markers" :key="marker.station" :selected="stationFrom === marker.station">{{marker.station}}</option>
+                                                                <option v-for="city in kzCities" :key="city.city" :selected="stationFrom === city.city">{{city.city}}</option>
                                                             </select>
                                                         </label>
                                                     </div>
@@ -34,7 +34,7 @@
                                                         <label class="form-group"><p class="enter-names enter-names-to">To:</p>
                                                             <select @change="selectTo($event)" class="form-control" name="movies">
                                                                 <option value="Station To" disabled selected>Station To</option>
-                                                                <option v-for="marker in markers" :key="marker.station" :selected="stationTo === marker.station" >{{marker.station}}</option>
+                                                                <option v-for="city in kzCities" :key="city.city" :selected="stationTo === city.city" >{{city.city}}</option>
                                                             </select>
                                                         </label>
                                                     </div>
@@ -59,7 +59,7 @@
         </div>
     </section>
     <div class="kz-map">
-        <MainMap :markers="markers"></MainMap>
+        <MainMap :kzCities="kzCities"></MainMap>
     </div>
     <div v-if="showSchedule">
         <ScheduleTable :schedules="schedules"></ScheduleTable>
@@ -69,6 +69,7 @@
 <script>
 import MainMap from '../components/MainMap.vue'
 import ScheduleTable from '../components/ScheduleTable.vue'
+import json from '../assets/kz.json'
 
 
 export default {
@@ -78,6 +79,7 @@ export default {
     },
   data() {
     return {
+        kzCities: json,
         stationFrom: null,
         stationTo: null,
         Datee: null,
@@ -92,72 +94,7 @@ export default {
                 DepartureTime: '12-12-2019',
                 ArrivalTime: '12-12-2019',
             }
-        ],
-        markers: [
-                    {
-                        station: 'Astana',
-                        position: {
-                            latitude: 51.169392,
-                            longitude: 71.449074
-                        }
-                    },
-                    {
-                        station: 'Karaganda',
-                        position: {
-                            latitude: 49.8333282,
-                            longitude: 73.165802
-                        }
-                    },
-                    {
-                        station: 'Jezkazgan',
-                        position: {
-                            latitude: 47.78333,
-                            longitude: 67.70000
-                        }
-                    },
-                    {
-                        station: 'Balkash',
-                        position: {
-                            latitude: 46.8481,
-                            longitude: 74.9950
-                        }
-                    },
-                    {
-                        station: 'Shu',
-                        position: {
-                            latitude: 45.890325,
-                            longitude: 73.070651
-                        }
-                    },
-                    {
-                        station: 'Almaty',
-                        position: {
-                            latitude: 43.238949,
-                            longitude: 76.889709
-                        }
-                    },
-                    {
-                        station: 'Taraz',
-                        position: {
-                            latitude: 42.896088,
-                            longitude: 71.398430
-                        }
-                    },
-                    {
-                        station: 'Shymkent',
-                        position: {
-                            latitude: 42.340782,
-                            longitude: 69.596329
-                        }
-                    },
-                    {
-                        station: 'Kyzylorda',
-                        position: {
-                            latitude: 44.8528,
-                            longitude: 65.5092
-                        }
-                    }
-                ],
+        ]
     }
   },
   mounted(){

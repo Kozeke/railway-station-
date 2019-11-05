@@ -7,9 +7,10 @@
 
 <script>
 import GoogleMapsLoader from 'google-maps'
+
     export default {
         name: 'google-map',
-         props: ['markers'],
+         props: ['kzCities'],
         data() {
             return {
                 map: null
@@ -28,7 +29,7 @@ import GoogleMapsLoader from 'google-maps'
             if(localStorage.stationTo){
                 stationTo = localStorage.stationTo;
             }
-            var markers = this.markers;
+            var stations = this.kzCities;
             GoogleMapsLoader.KEY = 'AIzaSyC89sEOJvI6sPySOghfkKsm7FsLqfZZL98';
             GoogleMapsLoader.LIBRARIES = ['geometry', 'places'];
             GoogleMapsLoader.load(function(google) {
@@ -185,7 +186,7 @@ import GoogleMapsLoader from 'google-maps'
                                 path: route,
                                 geodesic: true,
                                 strokeColor: colorArray[i],
-                                strokeOpacity: 0.3,
+                                strokeOpacity: 0.7,
                                 strokeWeight: 4
                             });
                             flightPath.setMap(map);
@@ -195,11 +196,11 @@ import GoogleMapsLoader from 'google-maps'
                     }
                     i++;
                 })
-                markers.forEach((marker) => {
-                    const position = new google.maps.LatLng(marker.position.latitude, marker.position.longitude)
-                    marker.map = map,
-                    marker.position = position,
-                    new google.maps.Marker(marker)  
+                stations.forEach((station) => {
+                    const position = new google.maps.LatLng(station.lat, station.lng)
+                    station.map = map,
+                    station.position = position,
+                    new google.maps.Marker(station)  
                 })
             });
         },
