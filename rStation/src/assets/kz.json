@@ -12,7 +12,7 @@
     }, 
     {
         "city": "Shymkent", 
-        "admin": "Ongt\u00fcstik Qazaqstan", 
+        "admin": "Ongtustik Qazaqstan", 
         "country": "Kazakhstan", 
         "population_proper": "414032", 
         "iso2": "KZ", 
@@ -66,7 +66,7 @@
         "population": "329002"
     }, 
     {
-        "city": "\u00d6skemen", 
+        "city": "Oskemen", 
         "admin": "Shyghys Qazaqstan", 
         "country": "Kazakhstan", 
         "population_proper": "249634", 
@@ -99,8 +99,8 @@
         "population": "300000"
     }, 
     {
-        "city": "Aqt\u00f6be", 
-        "admin": "Aqt\u00f6be", 
+        "city": "Aqtobe", 
+        "admin": "Aqtobe", 
         "country": "Kazakhstan", 
         "population_proper": "258529", 
         "iso2": "KZ", 
@@ -122,7 +122,7 @@
     }, 
     {
         "city": "Petropavl", 
-        "admin": "Solt\u00fcstik Qazaqstan", 
+        "admin": "Soltustik Qazaqstan", 
         "country": "Kazakhstan", 
         "population_proper": "200920", 
         "iso2": "KZ", 
@@ -143,8 +143,8 @@
         "population": "209788"
     }, 
     {
-        "city": "Atyra\u016b", 
-        "admin": "Atyra\u016b", 
+        "city": "Atyrau", 
+        "admin": "Atyrau", 
         "country": "Kazakhstan", 
         "population_proper": "158413", 
         "iso2": "KZ", 
@@ -154,18 +154,7 @@
         "population": "182753"
     }, 
     {
-        "city": "Temirta\u016b", 
-        "admin": "Qaraghandy", 
-        "country": "Kazakhstan", 
-        "population_proper": "163787", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "50.054938", 
-        "lng": "72.964643", 
-        "population": "170600"
-    }, 
-    {
-        "city": "K\u00f6ksheta\u016b", 
+        "city": "Kokshetau", 
         "admin": "Aqmola", 
         "country": "Kazakhstan", 
         "population_proper": "124444", 
@@ -185,18 +174,7 @@
         "lat": "51.723714", 
         "lng": "75.322869", 
         "population": "127868"
-    }, 
-    {
-        "city": "Rudnyy", 
-        "admin": "Qostanay", 
-        "country": "Kazakhstan", 
-        "population_proper": "84471", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "52.972903", 
-        "lng": "63.116772", 
-        "population": "124000"
-    }, 
+    },
     {
         "city": "Zhezqazghan", 
         "admin": "Qaraghandy", 
@@ -209,8 +187,8 @@
         "population": "104357"
     }, 
     {
-        "city": "T\u00fcrkistan", 
-        "admin": "Ongt\u00fcstik Qazaqstan", 
+        "city": "Turkistan", 
+        "admin": "Ongtustik Qazaqstan", 
         "country": "Kazakhstan", 
         "population_proper": "76127", 
         "iso2": "KZ", 
@@ -242,28 +220,6 @@
         "population": "81364"
     }, 
     {
-        "city": "Sarqan", 
-        "admin": "Almaty", 
-        "country": "Kazakhstan", 
-        "population_proper": "45739", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "45.411259", 
-        "lng": "79.915449", 
-        "population": "76919"
-    }, 
-    {
-        "city": "Kenta\u016b", 
-        "admin": "Ongt\u00fcstik Qazaqstan", 
-        "country": "Kazakhstan", 
-        "population_proper": "54321", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "43.516721", 
-        "lng": "68.504631", 
-        "population": "57408"
-    }, 
-    {
         "city": "Ridder", 
         "admin": "Shyghys Qazaqstan", 
         "country": "Kazakhstan", 
@@ -284,31 +240,9 @@
         "lat": "50.249146", 
         "lng": "66.920267", 
         "population": "55521"
-    }, 
+    },
     {
-        "city": "Zyryanovsk", 
-        "admin": "Shyghys Qazaqstan", 
-        "country": "Kazakhstan", 
-        "population_proper": "44929", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "49.72654", 
-        "lng": "84.273182", 
-        "population": "49658"
-    }, 
-    {
-        "city": "Zhitiqara", 
-        "admin": "Qostanay", 
-        "country": "Kazakhstan", 
-        "population_proper": "43104", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "52.19019", 
-        "lng": "61.198936", 
-        "population": "46740"
-    }, 
-    {
-        "city": "Ayag\u00f6z", 
+        "city": "Ayagoz", 
         "admin": "Shyghys Qazaqstan", 
         "country": "Kazakhstan", 
         "population_proper": "33479", 
@@ -319,18 +253,18 @@
         "population": "45861"
     }, 
     {
-        "city": "Arys", 
-        "admin": "Ongt\u00fcstik Qazaqstan", 
+        "city": "Saryshagan", 
+        "admin": "Qaraghandy", 
         "country": "Kazakhstan", 
-        "population_proper": "36285", 
+        "population_proper": "297", 
         "iso2": "KZ", 
         "capital": "", 
-        "lat": "42.430155", 
-        "lng": "68.808701", 
-        "population": "42648"
+        "lat": "46.119167", 
+        "lng": "73.619167", 
+        "population": "4365"
     }, 
     {
-        "city": "Sh\u016b", 
+        "city": "Shu", 
         "admin": "Zhambyl", 
         "country": "Kazakhstan", 
         "population_proper": "39785", 
@@ -339,73 +273,18 @@
         "lat": "43.60334", 
         "lng": "73.759192", 
         "population": "42439"
-    }, 
+    },
     {
-        "city": "Qapshaghay", 
-        "admin": "Almaty", 
-        "country": "Kazakhstan", 
-        "population_proper": "38472", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "43.862107", 
-        "lng": "77.065781", 
-        "population": "42167"
-    }, 
-    {
-        "city": "Qarata\u016b", 
+        "city": "Barylbaytal", 
         "admin": "Zhambyl", 
         "country": "Kazakhstan", 
-        "population_proper": "33605", 
+        "population_proper": "85", 
         "iso2": "KZ", 
         "capital": "", 
-        "lat": "43.178687", 
-        "lng": "70.467681", 
-        "population": "37881"
-    }, 
-    {
-        "city": "Qulsary", 
-        "admin": "Atyra\u016b", 
-        "country": "Kazakhstan", 
-        "population_proper": "37103", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "46.983333", 
-        "lng": "54.016667", 
-        "population": "37103"
-    }, 
-    {
-        "city": "Zharkent", 
-        "admin": "Almaty", 
-        "country": "Kazakhstan", 
-        "population_proper": "34422", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "44.1666", 
-        "lng": "80.006549", 
-        "population": "36496"
-    }, 
-    {
-        "city": "Atbasar", 
-        "admin": "Aqmola", 
-        "country": "Kazakhstan", 
-        "population_proper": "34797", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "51.806522", 
-        "lng": "68.359963", 
-        "population": "35819"
-    }, 
-    {
-        "city": "Esik", 
-        "admin": "Almaty", 
-        "country": "Kazakhstan", 
-        "population_proper": "26447", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "43.358857", 
-        "lng": "77.440348", 
-        "population": "35319"
-    }, 
+        "lat": "44.93984", 
+        "lng": "74.017766", 
+        "population": "100"
+    },
     {
         "city": "Aksay", 
         "admin": "Batys Qazaqstan", 
@@ -430,7 +309,7 @@
     }, 
     {
         "city": "Beyneu", 
-        "admin": "Mangghysta\u016b", 
+        "admin": "Mangghystau", 
         "country": "Kazakhstan", 
         "population_proper": "32452", 
         "iso2": "KZ", 
@@ -440,52 +319,8 @@
         "population": "32452"
     }, 
     {
-        "city": "Balyqshy", 
-        "admin": "Atyra\u016b", 
-        "country": "Kazakhstan", 
-        "population_proper": "19260", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "47.066667", 
-        "lng": "51.866667", 
-        "population": "31624"
-    }, 
-    {
-        "city": "Sh\u012beli", 
-        "admin": "Qyzylorda", 
-        "country": "Kazakhstan", 
-        "population_proper": "21910", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "44.168817", 
-        "lng": "66.738872", 
-        "population": "29832"
-    }, 
-    {
-        "city": "Alga", 
-        "admin": "Aqt\u00f6be", 
-        "country": "Kazakhstan", 
-        "population_proper": "28267", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "49.900418", 
-        "lng": "57.330543", 
-        "population": "28267"
-    }, 
-    {
-        "city": "Oktyabr\u2019sk", 
-        "admin": "Aqt\u00f6be", 
-        "country": "Kazakhstan", 
-        "population_proper": "26373", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "49.469124", 
-        "lng": "57.419142", 
-        "population": "28196"
-    }, 
-    {
         "city": "Shalqar", 
-        "admin": "Aqt\u00f6be", 
+        "admin": "Aqtobe", 
         "country": "Kazakhstan", 
         "population_proper": "27256", 
         "iso2": "KZ", 
@@ -493,20 +328,9 @@
         "lat": "47.833333", 
         "lng": "59.6", 
         "population": "27256"
-    }, 
+    },
     {
-        "city": "Shemona\u012bkha", 
-        "admin": "Shyghys Qazaqstan", 
-        "country": "Kazakhstan", 
-        "population_proper": "20087", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "50.628114", 
-        "lng": "81.912128", 
-        "population": "27176"
-    }, 
-    {
-        "city": "Ereymenta\u016b", 
+        "city": "Ereymentau", 
         "admin": "Aqmola", 
         "country": "Kazakhstan", 
         "population_proper": "14169", 
@@ -517,8 +341,8 @@
         "population": "25141"
     }, 
     {
-        "city": "Khromta\u016b", 
-        "admin": "Aqt\u00f6be", 
+        "city": "Khromtau", 
+        "admin": "Aqtobe", 
         "country": "Kazakhstan", 
         "population_proper": "19513", 
         "iso2": "KZ", 
@@ -526,40 +350,7 @@
         "lat": "50.251173", 
         "lng": "58.440034", 
         "population": "23715"
-    }, 
-    {
-        "city": "Lengir", 
-        "admin": "Ongt\u00fcstik Qazaqstan", 
-        "country": "Kazakhstan", 
-        "population_proper": "21238", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "42.181518", 
-        "lng": "69.885821", 
-        "population": "23058"
-    }, 
-    {
-        "city": "Mak\u012bnsk", 
-        "admin": "Aqmola", 
-        "country": "Kazakhstan", 
-        "population_proper": "17711", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "52.6329", 
-        "lng": "70.419112", 
-        "population": "23020"
-    }, 
-    {
-        "city": "Oytal", 
-        "admin": "Zhambyl", 
-        "country": "Kazakhstan", 
-        "population_proper": "9821", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "42.890255", 
-        "lng": "73.228205", 
-        "population": "22673"
-    }, 
+    },
     {
         "city": "Qarazhal", 
         "admin": "Qaraghandy", 
@@ -570,28 +361,6 @@
         "lat": "48.04021", 
         "lng": "70.857056", 
         "population": "22170"
-    }, 
-    {
-        "city": "Boralday", 
-        "admin": "Almaty", 
-        "country": "Kazakhstan", 
-        "population_proper": "20996", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "43.360278", 
-        "lng": "76.857778", 
-        "population": "20996"
-    }, 
-    {
-        "city": "\u00dcsht\u00f6be", 
-        "admin": "Almaty", 
-        "country": "Kazakhstan", 
-        "population_proper": "17741", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "45.252006", 
-        "lng": "77.980067", 
-        "population": "20492"
     }, 
     {
         "city": "Zhosaly", 
@@ -605,19 +374,8 @@
         "population": "20065"
     }, 
     {
-        "city": "Atas\u016b", 
-        "admin": "Qaraghandy", 
-        "country": "Kazakhstan", 
-        "population_proper": "13184", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "48.686593", 
-        "lng": "71.644688", 
-        "population": "19616"
-    }, 
-    {
         "city": "Emba", 
-        "admin": "Aqt\u00f6be", 
+        "admin": "Aqtobe", 
         "country": "Kazakhstan", 
         "population_proper": "1259", 
         "iso2": "KZ", 
@@ -636,18 +394,7 @@
         "lat": "47.467831", 
         "lng": "84.881108", 
         "population": "17600"
-    }, 
-    {
-        "city": "Derzhav\u012bnsk", 
-        "admin": "Aqmola", 
-        "country": "Kazakhstan", 
-        "population_proper": "13856", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "51.099223", 
-        "lng": "66.31557", 
-        "population": "15848"
-    }, 
+    },
     {
         "city": "Uryzhar", 
         "admin": "Shyghys Qazaqstan", 
@@ -658,40 +405,7 @@
         "lat": "47.09302", 
         "lng": "81.629393", 
         "population": "14826"
-    }, 
-    {
-        "city": "Maqat", 
-        "admin": "Atyra\u016b", 
-        "country": "Kazakhstan", 
-        "population_proper": "10256", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "47.65", 
-        "lng": "53.316667", 
-        "population": "14082"
-    }, 
-    {
-        "city": "Esil", 
-        "admin": "Aqmola", 
-        "country": "Kazakhstan", 
-        "population_proper": "627", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "51.954949", 
-        "lng": "66.408409", 
-        "population": "13504"
-    }, 
-    {
-        "city": "Taiynsha", 
-        "admin": "Solt\u00fcstik Qazaqstan", 
-        "country": "Kazakhstan", 
-        "population_proper": "1109", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "53.846646", 
-        "lng": "69.759873", 
-        "population": "13148"
-    }, 
+    },
     {
         "city": "Qulan", 
         "admin": "Zhambyl", 
@@ -715,28 +429,6 @@
         "population": "11238"
     }, 
     {
-        "city": "B\u016blaevo", 
-        "admin": "Solt\u00fcstik Qazaqstan", 
-        "country": "Kazakhstan", 
-        "population_proper": "880", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "54.905963", 
-        "lng": "70.441549", 
-        "population": "9886"
-    }, 
-    {
-        "city": "Aqadyr", 
-        "admin": "Qaraghandy", 
-        "country": "Kazakhstan", 
-        "population_proper": "1009", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "48.260598", 
-        "lng": "72.858255", 
-        "population": "9710"
-    }, 
-    {
         "city": "Ertis", 
         "admin": "Pavlodar", 
         "country": "Kazakhstan", 
@@ -757,42 +449,9 @@
         "lat": "49.585591", 
         "lng": "81.048515", 
         "population": "9087"
-    }, 
+    },
     {
-        "city": "Makhambet", 
-        "admin": "Atyra\u016b", 
-        "country": "Kazakhstan", 
-        "population_proper": "618", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "47.666667", 
-        "lng": "51.583333", 
-        "population": "8905"
-    }, 
-    {
-        "city": "Zhanga\u00f6zen", 
-        "admin": "Mangghysta\u016b", 
-        "country": "Kazakhstan", 
-        "population_proper": "8895", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "43.3", 
-        "lng": "52.8", 
-        "population": "8895"
-    }, 
-    {
-        "city": "Aqs\u016b", 
-        "admin": "Aqmola", 
-        "country": "Kazakhstan", 
-        "population_proper": "8543", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "52.444223", 
-        "lng": "71.957606", 
-        "population": "8543"
-    }, 
-    {
-        "city": "Zh\u00e4nibek", 
+        "city": "Zhanibek", 
         "admin": "Batys Qazaqstan", 
         "country": "Kazakhstan", 
         "population_proper": "5436", 
@@ -823,40 +482,7 @@
         "lat": "52.451073", 
         "lng": "64.619771", 
         "population": "8049"
-    }, 
-    {
-        "city": "Bayghan\u012bn", 
-        "admin": "Aqt\u00f6be", 
-        "country": "Kazakhstan", 
-        "population_proper": "885", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "48.689755", 
-        "lng": "55.875121", 
-        "population": "7657"
-    }, 
-    {
-        "city": "Osakarovka", 
-        "admin": "Qaraghandy", 
-        "country": "Kazakhstan", 
-        "population_proper": "1087", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "50.562193", 
-        "lng": "72.570891", 
-        "population": "7305"
-    }, 
-    {
-        "city": "Best\u00f6be", 
-        "admin": "Aqmola", 
-        "country": "Kazakhstan", 
-        "population_proper": "7189", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "52.497951", 
-        "lng": "73.095919", 
-        "population": "7189"
-    }, 
+    },
     {
         "city": "Tobyl", 
         "admin": "Qostanay", 
@@ -867,29 +493,7 @@
         "lat": "52.696575", 
         "lng": "62.581014", 
         "population": "7155"
-    }, 
-    {
-        "city": "Zholymbet", 
-        "admin": "Aqmola", 
-        "country": "Kazakhstan", 
-        "population_proper": "1062", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "51.742113", 
-        "lng": "71.712454", 
-        "population": "6876"
-    }, 
-    {
-        "city": "Kishkenek\u00f6l", 
-        "admin": "Solt\u00fcstik Qazaqstan", 
-        "country": "Kazakhstan", 
-        "population_proper": "6779", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "53.635894", 
-        "lng": "72.340793", 
-        "population": "6779"
-    }, 
+    },
     {
         "city": "Qazaly", 
         "admin": "Qyzylorda", 
@@ -911,51 +515,7 @@
         "lat": "50.2", 
         "lng": "51.166667", 
         "population": "6000"
-    }, 
-    {
-        "city": "Torghay", 
-        "admin": "Qostanay", 
-        "country": "Kazakhstan", 
-        "population_proper": "5277", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "49.633889", 
-        "lng": "63.498056", 
-        "population": "5277"
-    }, 
-    {
-        "city": "Fort-Shevchenko", 
-        "admin": "Mangghysta\u016b", 
-        "country": "Kazakhstan", 
-        "population_proper": "1259", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "44.506544", 
-        "lng": "50.26388", 
-        "population": "5213"
-    }, 
-    {
-        "city": "Aqta\u016b", 
-        "admin": "Mangghysta\u016b", 
-        "country": "Kazakhstan", 
-        "population_proper": "4479", 
-        "iso2": "KZ", 
-        "capital": "admin", 
-        "lat": "43.65", 
-        "lng": "51.166666", 
-        "population": "4479"
-    }, 
-    {
-        "city": "Saryshagan", 
-        "admin": "Qaraghandy", 
-        "country": "Kazakhstan", 
-        "population_proper": "297", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "46.119167", 
-        "lng": "73.619167", 
-        "population": "4365"
-    }, 
+    },
     {
         "city": "Shongzhy", 
         "admin": "Almaty", 
@@ -966,17 +526,6 @@
         "lat": "43.538134", 
         "lng": "79.465819", 
         "population": "3902"
-    }, 
-    {
-        "city": "Serebryansk", 
-        "admin": "Shyghys Qazaqstan", 
-        "country": "Kazakhstan", 
-        "population_proper": "701", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "49.684134", 
-        "lng": "83.295612", 
-        "population": "701"
     }, 
     {
         "city": "Zhaltyr", 
@@ -999,16 +548,5 @@
         "lat": "52.490866", 
         "lng": "78.155562", 
         "population": "107"
-    }, 
-    {
-        "city": "B\u016brylbaytal", 
-        "admin": "Zhambyl", 
-        "country": "Kazakhstan", 
-        "population_proper": "85", 
-        "iso2": "KZ", 
-        "capital": "", 
-        "lat": "44.93984", 
-        "lng": "74.017766", 
-        "population": "100"
     }
 ]

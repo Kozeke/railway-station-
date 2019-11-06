@@ -19,10 +19,19 @@
                                                   <div class="row">
                                                     <div class="form-group col-4">
                                                         <label class="form-group"><p class="enter-names enter-names-to">From:</p>
-                                                            <select @change="selectFrom($event)" class="form-control" name="movies">
+                                                            <autocomplete-vue
+                                                                v-model="stationFrom"
+                                                                :list="kzCities"
+                                                                property="city"
+                                                                placeholder="Choose Station..."
+                                                                classPrefix="pick-station"
+                                                                inputClass="pick-input"
+                                                                threshold="1"
+                                                            ></autocomplete-vue>
+                                                            <!-- <select @change="selectFrom($event)" class="form-control" name="movies">
                                                                 <option value="Station From" disabled selected>Station From</option>
                                                                 <option v-for="city in kzCities" :key="city.city" :selected="stationFrom === city.city">{{city.city}}</option>
-                                                            </select>
+                                                            </select> -->
                                                         </label>
                                                     </div>
                                                     <div class="form-group col-1">
@@ -32,10 +41,15 @@
                                                     </div>
                                                     <div class="form-group col-4">
                                                         <label class="form-group"><p class="enter-names enter-names-to">To:</p>
-                                                            <select @change="selectTo($event)" class="form-control" name="movies">
-                                                                <option value="Station To" disabled selected>Station To</option>
-                                                                <option v-for="city in kzCities" :key="city.city" :selected="stationTo === city.city" >{{city.city}}</option>
-                                                            </select>
+                                                           <autocomplete-vue
+                                                                v-model="stationTo"
+                                                                :list="kzCities"
+                                                                property="city"
+                                                                placeholder="Choose Station..."
+                                                                classPrefix="pick-station"
+                                                                inputClass="pick-input"
+                                                                threshold="1"
+                                                            ></autocomplete-vue>
                                                         </label>
                                                     </div>
                                                     <div class="form-group form-group-date col-4">
@@ -69,19 +83,20 @@
 <script>
 import MainMap from '../components/MainMap.vue'
 import ScheduleTable from '../components/ScheduleTable.vue'
+import AutocompleteVue from 'autocomplete-vue'
 import json from '../assets/kz.json'
-
 
 export default {
     components:{
         MainMap,
-        ScheduleTable
+        ScheduleTable,
+        'autocomplete-vue': AutocompleteVue
     },
   data() {
     return {
         kzCities: json,
-        stationFrom: null,
-        stationTo: null,
+        stationFrom: "",
+        stationTo: "",
         Datee: null,
         showSchedule: false,  
         schedules:[
@@ -167,6 +182,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.pick-station{
+    z-index: 20;
+    position: absolute;
+    overflow: hidden;
+    background: #fff;
+    border: rgba(0,0,0,0.8);
+    .pick-input{
+        border: none;
+    }
+}
 .home{
   width: 100%;
     height: 945px;
