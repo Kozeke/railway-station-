@@ -2,13 +2,13 @@
     <div class="gd-booking js_container_booking_info" data-seats_position="жоғарғы,төмеңгі,орташа" style="display: block;">
       <!-- car select -->
       <div class="content__block content__block--no-margin">
-         <div class="content__lead row">Вагонды және орынды таңдаңыз</div>
+         <div class="content__lead row">Please pick a carriage and seat(s)</div>
          <div class="js-train js_toggle second" data-car-class="second" style="display: block;">
             <div class="train train--kz js-car_select_item car_select_item second active" data-car-class="second">
                <div class="col-4 col-l-12">
-                  Купе - <strong>
-                  Тальго                </strong>
-                  <div data-operation-type="2" data-old-price="12086;24082;36071;48060" class="train__price price hidden KZT" rel="0.00" style="display: block;">
+                  Kupe - <strong>
+                  Talgo                </strong>
+                  <div class="train__price price hidden KZT" rel="0.00" style="display: block;">
                      11 989.0 KZT
                   </div>
                </div>
@@ -31,10 +31,10 @@
             <div class="content__block js-train-info js_seat_select" data-uil="car_schema" style="display: block;">
                <div class="train-info-text row">
                   <div class="col-4 col-l-12">
-                     <div class="info-text info-text--arrow">Вагонның картасынан орындарды таңдаңыз</div>
+                     <div class="info-text info-text--arrow">Select seat(s) in a carriage</div>
                   </div>
                   <div class="col-8 col-l-12">
-                     <strong>Орындарды белгілеу:</strong>
+                     <strong>Seat mark info:</strong>
                      <ul class="train-info__list">
                         <li><span class="train-info__item train-info__item--available">Available</span></li>
                         <li><span class="train-info__item train-info__item--selected">Selected</span></li>
@@ -88,18 +88,105 @@
                      </div>
                   </div>
                </div>
+                <div class="">
+                    You have selected {{ selectedSeats }} seats. The total price is {{ selectedSeats.length * 11989 }}.
+                </div>
+               <div class="user-fields-block">
+                    <div class="text-center">
+                        <h3 class="dark-grey-text mb-3">
+                            <strong>Passenger Info</strong>
+                        </h3>
+                    </div>
+                    <form novalidate="true" @submit.prevent="checkForm">
+                        <div class="form-row">
+                            <div class="col-md-3">
+                                    <mdb-input
+                                    size="sm"
+                                    v-model="userFirstName"
+                                    type="text"
+                                    icon="user"
+                                    label="First name"
+                                    required
+                                    invalidFeedback="Please provide a valid name."
+                                    validFeedback="Look's good."
+                                />
+                            </div>
+                            <div class="col-md-3">
+                                <mdb-input
+                                    size="sm"
+                                    v-model="userLastName"
+                                    label="Last name"
+                                    icon="user"
+                                    type="text"
+                                    required
+                                    invalidFeedback="Please provide a valid name."
+                                    validFeedback="Look's good."
+                                />
+                            </div>
+                            <div class="col-md-3">
+                                <mdb-input
+                                    size="sm"
+                                    v-model="userEmail"
+                                    label="email"
+                                    icon="credit-card"
+                                    type="text"
+                                    invalidFeedback="Please provide a valid password."
+                                    validFeedback="Look's good."
+                                />
+                            </div>
+                            <div class="col-md-3">
+                                <mdb-input
+                                    size="sm"
+                                    v-model="userPassportNum"
+                                    label="№ passport"
+                                    icon="passport"
+                                    type="email"
+                                    required
+                                    invalidFeedback="Please provide a valid mail."
+                                    validFeedback="Look's good."
+                                />
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input" id="customControlValidation1" required>
+                                <label class="custom-control-label" for="customControlValidation1">Agree to <a href>terms and conditions</a></label>
+                            </div>
+                        </div>
+                        <div class="text-center mb-3">
+                            <mdb-btn gradient="blue" type="submit" rounded class="btn-block z-depth-1a">Proceed</mdb-btn>
+                        </div>
+                    </form>
+               </div>
             </div>
          </form>
          </div>
       </div>
 </template>
 <script>
+import { mdbRow, mdbCol, mdbCard, mdbCardBody, mdbInput, mdbBtn, mdbIcon, mdbModal, mdbModalBody, mdbModalFooter } from 'mdbvue';
 
 export default {
-
+    components: {
+      mdbRow,
+      mdbCol,
+      mdbCard,
+      mdbCardBody,
+      mdbInput,
+      mdbBtn,
+      mdbIcon,
+      mdbModal,
+      mdbModalBody,
+      mdbModalFooter
+    },
     data() {
         return{
             selectedVagonID: 0,
+            selectedSeats: [],
+            userFirstName: '',
+            userLastName: '',
+            userEmail: '',
+            userPassportNum: '',
             vagons:[
                 {
                     id: 0,
@@ -111,13 +198,25 @@ export default {
                     id: 1,
                     kupeNumber: 12,
                     seatNumber: 20,
-                    seats: [1,2,3]
+                    seats: [1,2,3,6,7,8,12]
                 },
                 {
                     id: 2,
                     kupeNumber: 5,
                     seatNumber: 24,
-                    seats: [1,2,3,4]
+                    seats: [1,3,4,6]
+                },
+                {
+                    id: 3,
+                    kupeNumber: 6,
+                    seatNumber: 24,
+                    seats: [1,3,4,6]
+                },
+                {
+                    id: 4,
+                    kupeNumber: 3,
+                    seatNumber: 24,
+                    seats: [1,3,4,6]
                 }
             ]
             
@@ -127,23 +226,25 @@ export default {
         selectVagon(vagonID){
             if(this.selectedVagonID) document.getElementById('vagon' + this.selectedVagonID).style.backgroundColor = "#ffffff";
             this.selectedVagonID = vagonID;
-            document.getElementById('vagon' + vagonID).style.backgroundColor = "green";
+            document.getElementById('vagon' + vagonID).style.backgroundColor = "#a4a4db";
         },
         selectSeat(seatID){
-            console.log('abc');
-            console.log(document.getElementById('seat' + seatID))
             if(document.getElementById('seat' + seatID).classList.contains("selected_seat")){
-                console.log('A');
                 document.getElementById('seat' + seatID).classList.remove("selected_seat");
+                this.selectedSeats.splice(this.selectedSeats.indexOf(seatID), 1);
+                
             } else if(document.getElementById('seat' + seatID).classList.contains('available_seat')){
-                console.log('B');
                 document.getElementById('seat' + seatID).className += " selected_seat";
+                this.selectedSeats.push(seatID);
             }
         }
     }
 }
 </script>
 <style scoped lang="scss">
+
+/********** Seat Tooltip **********/
+
 [tooltip]:before {
     /* needed - do not touch */
     z-index: 30;
