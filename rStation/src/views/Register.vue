@@ -58,24 +58,28 @@
     methods:{
         checkForm(event) {
             event.target.classList.add('was-validated');
-            if(this.firstName && this.lastName && this.email.includes('@') && this.email.includes('.') && this.pass && this.newPass){
-                axios.post('http://localhost:8080/databind/api/register',{
-                    mail: this.email,
-                    password: this.pass,
-                    firstname: this.firstName,
-                    surname: this.lastName
-
-
-                  })
-                  .then(response => {
-                      localStorage.data = response.data;
-                      this.$router.push('/profile');
-                  })
-                  .catch(e => {
-                      console.log(e);
-                  })
+            // if(this.firstName && this.lastName && this.email.includes('@') && this.email.includes('.') && this.pass && this.newPass){
+            //     axios.post('http://10.101.20.45:8080/databind/api/register',{
+            //          header:{
+            //           'Access-Control-Allow-Origin': '*',
+            //           "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
+            //           "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+            //           "content-type": 'application/json'
+            //         },
+            //         mail: this.email,
+            //         password: this.pass,
+            //         firstname: this.firstName,
+            //         surname: this.lastName
+            //       })
+            //       .then(response => {
+            //           localStorage.data = response.data;
+            //           this.$router.push('/profile');
+            //       })
+            //       .catch(e => {
+            //           console.log(e);
+            //       })
                
-            }
+            // }
         }
     }
   }

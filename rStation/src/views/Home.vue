@@ -2,7 +2,7 @@
   <div class="home">
     <!-- ** Search Form Area ** -->
 
-    <section class="dorne-welcome-area bg-img bg-overlay">
+    <section class="dorne-welcome-area bg-img bg-overlay" style="display:none">
         <div class="container h-100">
             <div class="row h-100 align-items-center justify-content-center">
                 <div class="col-12 col-md-10">
@@ -72,6 +72,7 @@
             </div>
         </div>
     </section>
+    <TrainInfo></TrainInfo>
     <div class="kz-map">
         <MainMap :kzCities="kzCities"></MainMap>
     </div>
@@ -83,6 +84,7 @@
 <script>
 import MainMap from '../components/MainMap.vue'
 import ScheduleTable from '../components/ScheduleTable.vue'
+import TrainInfo from '../components/TrainInfo.vue'
 import AutocompleteVue from 'autocomplete-vue'
 import json from '../assets/kz.json'
 
@@ -90,6 +92,7 @@ export default {
     components:{
         MainMap,
         ScheduleTable,
+        TrainInfo,
         'autocomplete-vue': AutocompleteVue
     },
   data() {

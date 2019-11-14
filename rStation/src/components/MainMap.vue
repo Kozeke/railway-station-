@@ -170,7 +170,6 @@ import GoogleMapsLoader from 'google-maps'
         width: 100%;
         height: 100%;
         background: gray;
-        border: 8px solid #fff;
         position: absolute;
         z-index: 1;
         top: 0;
