@@ -1,48 +1,189 @@
 <template >
-  <table id="fifthTable">
-        <thead>
-          <tr>
-            <th>
-                Train
-            </th>
-            <th>
-                TrainName
-            </th>
-            <th>
-                TrainType
-            </th>
-            <th>
-                DepartureTime
-            </th>
-            <th>
-                ArrivalTime
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-bind:key="schedule.TravelInstanceID" v-for="schedule in schedules">
-            <td>{{schedule.TravelInstanceID}}</td>
-            <td>{{schedule.TrainName}}</td>
-            <td>{{schedule.TrainType}}</td>
-            <td>{{schedule.DepartureTime}}</td>
-            <td>{{schedule.ArrivalTime}}</td>
-          </tr>
-        </tbody>
-      </table>
+  <div>
+    <table id="fifthTable">
+      <thead>
+        <tr>
+          <th>Train №</th>
+          <th>From</th>
+          <th style="text-align:center">Time in way</th>
+          <th style="text-align:right">To</th>
+          <th>Type</th>
+          <th>Number of places</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="tb1" v-bind:key="schedule.TravelInstanceID" v-for="schedule in schedules">
+          <td>
+            <div class="trainInfo">
+              <div class="trainNum">{{schedule.TrainName}}</div>
+              <div>
+                <a href="#">Описание</a>
+              </div>
+              <div class="trainDir">{{schedule.TrainFrom}}->{{schedule.TrainTo}}</div>
+              <div>
+                <a href="#">Маршрут поезда</a>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="Departure">
+              <div class="time">21:09</div>
+              <div class="date">{{schedule.DepartureTime}}</div>
+              <div class="clientTo">{{schedule.ClientFrom}}</div>
+              <div class="text">(время местное)</div>
+            </div>
+          </td>
+          <td>
+            <div class="tm">14ч 21м</div>
+            <div class="line"></div>
+          </td>
+          <td>
+            <div class="Departure" style="text-align:right">
+              <div class="time">20:09</div>
+              <div class="date">{{schedule.ArrivalTime}}</div>
+              <div class="clientTo">{{schedule.ClientTo}}</div>
+              <div class="text">(время местное)</div>
+            </div>
+          </td>
+          <td>
+            <div class="type">
+              <div>Люкс: от</div>
+              <div style="font-weight:bold">{{schedule.LuxPrice}} KZT</div>
+            </div>
+            <div class="type">
+              <div>Купэ: от</div>
+              <div style="font-weight:bold">{{schedule.KupePrice}} KZT</div>
+            </div>
+          </td>
+          <td>
+            <div>
+              мест:12
+              <button class="button" v-on:click="TrainInstance">Выбрать</button>
+            </div>
+            <div>
+              мест:32
+              <button class="button" v-on:click="TrainInstance">Выбрать</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div v-if="TravelInstance==false">
+      <div class="travelInstance">
+        <section class="form-elegant">
+          <mdb-card>
+            <mdb-card-body class="mx-4 grey-text">
+              <div class="text-center">
+                <h3 class="dark-grey-text mb-5">
+                  <strong>Pasanger Info</strong>
+                </h3>
+              </div>
+              <form novalidate="true" @submit.prevent="checkForm">
+                <mdb-input
+                  v-model="firstName"
+                  type="text"
+                  icon="user"
+                  label="First name"
+                  required
+                  invalidFeedback="Please provide a valid name."
+                  validFeedback="Look's good."
+                />
+                <mdb-input
+                  v-model="lastName"
+                  label="Last name"
+                  icon="user"
+                  type="text"
+                  required
+                  invalidFeedback="Please provide a valid name."
+                  validFeedback="Look's good."
+                />
+                <mdb-input
+                  v-model="middleName"
+                  label="Middle name (Optional)"
+                  icon="store-alt"
+                  type="text"
+                />
+                <mdb-input
+                  v-model="passportNum"
+                  label="№ passport"
+                  icon="passport"
+                  type="email"
+                  required
+                  invalidFeedback="Please provide a valid mail."
+                  validFeedback="Look's good."
+                />
+                <mdb-input
+                  v-model="discontNum"
+                  label="Discont card"
+                  icon="credit-card"
+                  type="text"
+                  invalidFeedback="Please provide a valid password."
+                  validFeedback="Look's good."
+                />
+
+                <div class="text-center mb-3">
+                  <mdb-btn gradient="blue" type="submit" rounded class="btn-block z-depth-1a">Buy</mdb-btn>
+                </div>
+              </form>
+            </mdb-card-body>
+          </mdb-card>
+        </section>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 /* eslint-disable */
-
+import {
+  mdbRow,
+  mdbCol,
+  mdbCard,
+  mdbCardBody,
+  mdbInput,
+  mdbBtn,
+  mdbIcon,
+  mdbModal,
+  mdbModalBody,
+  mdbModalFooter
+} from "mdbvue";
+import axios from "axios";
 export default {
-  props: ['schedules'],
+  name: "FormsPage",
+  components: {
+    mdbRow,
+    mdbCol,
+    mdbCard,
+    mdbCardBody,
+    mdbInput,
+    mdbBtn,
+    mdbIcon,
+    mdbModal,
+    mdbModalBody,
+    mdbModalFooter
+  },
+  props: ["schedules"],
   data() {
     return {
- 
+      selected: [],
+      TravelInstance: false,
+      firstName: null,
+      lastName: null,
+      agentName: null,
+      email: null,
+      pass: null,
+      newPass: null
     };
   },
-  mounted(){
+  mounted() {
     console.log(this.schedules);
-  }
+  },
+  methods: {
+    TrainInstance() {
+      this.TravelInstance = !this.TravelInstance;
+      console.log(this.TravelInstance);
+    }
+  },
+  computed: {}
 };
 </script>
 <style lang="scss" scoped>
@@ -56,7 +197,6 @@ export default {
   opacity: 0.8;
   width: 80%;
 }
-
 table th {
   text-transform: uppercase;
   text-align: left;
@@ -68,8 +208,8 @@ table th {
 table td {
   text-align: left;
   padding: 8px;
-  border-right: 2px solid #44475c;
-  background-color: rgba(68, 71, 92,0.5);
+  border-collapse: collapse;
+  background-color: rgba(68, 71, 92, 0.5);
   color: rgba(14, 2, 35, 0.9);
 }
 table td:last-child {
@@ -92,5 +232,100 @@ table tbody tr:nth-child(2n) td {
   background-size: contain;
   background-position-y: bottom;
 }
+.trainInfo {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+.type {
+  display: flex;
+
+  flex-direction: row;
+}
+.trainNum {
+  font-weight: bold;
+  font-size: large;
+}
+.time {
+  font-size: large;
+  font-weight: bold;
+}
+.Departure {
+  padding-right: 1px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.tm {
+  text-align: center;
+  font-size: medium;
+}
+
+.line {
+  border-bottom: 2px solid #44475c;
+  padding-bottom: 2px;
+  position: relative;
+}
+
+.line:before,
+.line:after {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  height: 10px;
+  width: 10px;
+  background: #44475c;
+  content: "";
+  border-radius: 5px;
+}
+
+.line:after {
+  right: 0;
+  left: auto;
+}
+.button {
+  background-color: #44475c; /* Green */
+  border: none;
+  color: white;
+  padding: 4px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.travelInstance {
+  position: absolute !important;
+  z-index: 999;
+  width: 80% !important;
+  padding: 0;
+  transition: 0.3s ease all;
+  margin-left: 10%;
+}
+.card {
+  border: 2px solid #44475c;
+  margin: 20px auto auto auto !important;
+}
+.form-elegant {
+  margin: 20px auto auto auto !important;
+
+  .font-small {
+    font-size: 0.8rem;
+  }
+  .z-depth-1a {
+    -webkit-box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26),
+      0 4px 12px 0 rgba(121, 155, 254, 0.25);
+    box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26),
+      0 4px 12px 0 rgba(121, 155, 254, 0.25);
+  }
+  .z-depth-1-half,
+  .btn:hover {
+    -webkit-box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28),
+      0 4px 15px 0 rgba(36, 133, 255, 0.15);
+    box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28),
+      0 4px 15px 0 rgba(36, 133, 255, 0.15);
+  }
+}
 </style>
- 
