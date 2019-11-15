@@ -13,7 +13,6 @@
 <script>
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
-
 export default {
   components: {
     Header,
@@ -21,7 +20,7 @@ export default {
   },
    data(){
         return {
-            image: "assets/img/bg-img/hero-1.jpg"
+          image: "assets/img/bg-img/hero-1.jpg"
         }
     },
   mounted: function() {

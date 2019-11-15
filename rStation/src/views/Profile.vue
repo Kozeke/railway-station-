@@ -71,26 +71,26 @@ export default {
         },
     mounted(){
         this.token = localStorage.data
-      axios.get('http://localhost:8080/databind/api/me?token=' + this.token,{
-        header:{
-          'Access-Control-Allow-Origin': '*',
-          "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
-          "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
-        }
-      })
-      .then(response => {
-          console.log(response.data);
-          this.first_name = response.data.firstname;
-          this.last_name = response.data.surname;
-          this.email = response.data.mail;
-          this.password = response.data.password;
-      })
-      .catch(e => {
-          console.log(e);
-      })
-      // google-chrome --disable-web-security -–allow-file-access-from-fes --user-data-dir
-      
-  },
+        console.log(this.token)
+        axios.get('http://10.101.20.45:8080/databind/api/me',{
+            headers: {
+                "Authorization" : "value"
+            }
+            
+        })
+        .then(response => {
+            console.log(response.data);
+            this.first_name = response.data.firstname;
+            this.last_name = response.data.surname;
+            this.email = response.data.mail;
+            this.password = response.data.password;
+        })
+        .catch(e => {
+            console.log(e);
+        })
+        // google-chrome --disable-web-security -–allow-file-access-from-fes --user-data-dir
+        
+    },
     methods: {
         focusIn(value) {
             this.hasfocus = value;
@@ -102,19 +102,22 @@ export default {
         editData(value){
             this.viewMode = value;
             if(value){
-              axios.put('http://localhost:8080/databind/api/me?token=' + this.token,{
-                    mail: this.email,
-                    password: this.password,
-                    firstname: this.first_name,
-                    surname: this.last_name
-              })
-              .then(response => {
-                  console.log(response.data);
-                  this.$router.push('/profile');
-              })
-              .catch(e => {
-                  console.log(e);
-              })
+            //   axios.put('http://10.101.20.45:8080/databind/api/me',{
+            //       headers:{
+            //           "Authorization": this.token
+            //       },
+            //         mail: this.email,
+            //         password: this.password,
+            //         firstname: this.first_name,
+            //         surname: this.last_name
+            //   })
+            //   .then(response => {
+            //       console.log(response.data);
+            //       this.$router.push('/profile');
+            //   })
+            //   .catch(e => {
+            //       console.log(e);
+            //   })
           }
         }
     },
