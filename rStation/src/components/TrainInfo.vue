@@ -9,7 +9,7 @@
                   Kupe - <strong>
                   Talgo                </strong>
                   <div class="train__price price hidden KZT" rel="0.00" style="display: block;">
-                     11 989.0 KZT
+                        {{ price }} KZT
                   </div>
                </div>
                <div class="col-8 col-l-12 car_select_radio_btn second">
@@ -19,7 +19,7 @@
                      <label for="car2" :id="'vagon' + vagon.id" class="train__item" v-on:click="selectVagon(vagon.id)">
                      <span class="train__item-num">{{ vagon.id }}</span>
                      <span class="train__item-text">available</span>
-                     <span class="train__item-seats">{{ vagon.seatNumber }}</span>
+                     <span class="train__item-seats">{{ vagon.seats.length }}</span>
                      </label>
                   </div>
                </div>
@@ -63,10 +63,10 @@
                                           <div class="passengers_top">
                                              <div class="item-kupe" v-for="index in vagons[selectedVagonID].kupeNumber" :key="index">
                                                 <div class="item-table"></div>
-                                                    <a v-on:click="selectSeat(index*4 - 2)" tooltip="Upper" v-bind:class="{'available_seat': vagons[selectedVagonID].seats.includes(index*4 - 2),  'unavailable_seat': !vagons[selectedVagonID].seats.includes(index*4 - 2)}" class="one-seat one_sit tl top  tooltipstered" :id="'seat' + (index*4 - 2)">{{ index*4 - 2 }}</a>
-                                                    <a v-on:click="selectSeat(index*4 - 3)" tooltip="Lower" v-bind:class="{'available_seat': vagons[selectedVagonID].seats.includes(index*4 - 3),  'unavailable_seat': !vagons[selectedVagonID].seats.includes(index*4 - 3)}" class="one-seat one_sit bl bottom  tooltipstered" :id="'seat' + (index*4 - 3)">{{ index*4 - 3 }}</a>
-                                                    <a v-on:click="selectSeat(index*4)" tooltip="Upper" v-bind:class="{'available_seat': vagons[selectedVagonID].seats.includes(index*4),  'unavailable_seat': !vagons[selectedVagonID].seats.includes(index*4 )}" class="one-seat one_sit tr top  tooltipstered" :id="'seat' +  index*4">{{ index*4 }}</a>
-                                                    <a v-on:click="selectSeat(index*4 - 1)" tooltip="Lower" v-bind:class="{'available_seat': vagons[selectedVagonID].seats.includes(index*4 - 1),  'unavailable_seat': !vagons[selectedVagonID].seats.includes(index*4 - 1)}" class="one-seat one_sit br bottom  tooltipstered" :id="'seat' + (index*4 - 1)">{{ index*4 - 1 }}</a>
+                                                    <a v-on:click="selectSeat(index*4 - 2)" tooltip="Upper" v-bind:class="{'available_seat': vagons[selectedVagonID].seats.includes(index*4 - 2), 'unavailable_seat': !vagons[selectedVagonID].seats.includes(index*4 - 2), 'selected_seat': selectedSeats.includes('vagon' + selectedVagonID + '_seat' + (index*4 - 2))}" class="one-seat one_sit tl top" :id="'vagon' + selectedVagonID + '_seat' + (index*4 - 2)">{{ index*4 - 2 }}</a>
+                                                    <a v-on:click="selectSeat(index*4 - 3)" tooltip="Lower" v-bind:class="{'available_seat': vagons[selectedVagonID].seats.includes(index*4 - 3), 'unavailable_seat': !vagons[selectedVagonID].seats.includes(index*4 - 3), 'selected_seat': selectedSeats.includes('vagon' + selectedVagonID + '_seat' + (index*4 - 3))}" class="one-seat one_sit bl bottom" :id="'vagon' + selectedVagonID + '_seat' + (index*4 - 3)">{{ index*4 - 3 }}</a>
+                                                    <a v-on:click="selectSeat(index*4)" tooltip="Upper" v-bind:class="{'available_seat': vagons[selectedVagonID].seats.includes(index*4), 'unavailable_seat': !vagons[selectedVagonID].seats.includes(index*4 ), 'selected_seat': selectedSeats.includes('vagon' + selectedVagonID + '_seat' + (index*4))}" class="one-seat one_sit tr top" :id="'vagon' + selectedVagonID + '_seat' +  index*4">{{ index*4 }}</a>
+                                                    <a v-on:click="selectSeat(index*4 - 1)" tooltip="Lower" v-bind:class="{'available_seat': vagons[selectedVagonID].seats.includes(index*4 - 1), 'unavailable_seat': !vagons[selectedVagonID].seats.includes(index*4 - 1), 'selected_seat': selectedSeats.includes('vagon' + selectedVagonID + '_seat' + (index*4 - 1))}" class="one-seat one_sit br bottom" :id="'vagon' + selectedVagonID + '_seat' + (index*4 - 1)">{{ index*4 - 1 }}</a>
                                              </div>
                                           </div>
                                           <!-- passengers_top -->
@@ -88,72 +88,89 @@
                      </div>
                   </div>
                </div>
-                <div class="">
-                    You have selected {{ selectedSeats }} seats. The total price is {{ selectedSeats.length * 11989 }}.
+                <div class="user-select-info" v-if="selectedSeats.length != 0">
+                    You have selected {{ selectedSeats.length }} seat(s). Total cost is {{ selectedSeats.length*price }}.
+                    <!-- <div v-for="index in selectedSeats" :key="index">
+                        <span>Vagon: {{ index[5] }} and seat(s): {{index[11]}}.</span>
+                    </div>
+                    <span>The total price is {{ selectedSeats.length * 11989 }}.</span> -->
                 </div>
                <div class="user-fields-block">
-                    <div class="text-center">
-                        <h3 class="dark-grey-text mb-3">
-                            <strong>Passenger Info</strong>
-                        </h3>
+                    <div class="text-center passenger-info" v-if="selectedSeats.length != 0">
+                        <h6>Passenger Info</h6>
                     </div>
                     <form novalidate="true" @submit.prevent="checkForm">
-                        <div class="form-row">
-                            <div class="col-md-3">
+                        <div class="user-input-form" v-for="(item, index) in selectedSeats" :key="item">
+                            <div class="form-row top-form">
+                                <div class="col-md-4">
+                                    <p>Passenger {{ index + 1 }}:</p>
+                                </div>
+                                <div class="col-md-7"></div>
+                                <div class="col-md-1">
+                                    <span v-on:click="deleteSeat(item);" class="btn"><i class="fas fa-trash"></i></span>
+                                </div>
+                            </div>
+                            <div class="form-row middle-form">
+                                <div class="col-md-3">
+                                        <mdb-input
+                                        class="mdForm"
+                                        size="sm"
+                                        v-model="passengers[index].firstName"
+                                        type="text"
+                                        icon="user"
+                                        label="First name"
+                                        required
+                                        invalidFeedback="Please provide a valid name."
+                                        validFeedback="Look's good."
+                                    />
+                                </div>
+                                <div class="col-md-3">
                                     <mdb-input
-                                    size="sm"
-                                    v-model="userFirstName"
-                                    type="text"
-                                    icon="user"
-                                    label="First name"
-                                    required
-                                    invalidFeedback="Please provide a valid name."
-                                    validFeedback="Look's good."
-                                />
-                            </div>
-                            <div class="col-md-3">
-                                <mdb-input
-                                    size="sm"
-                                    v-model="userLastName"
-                                    label="Last name"
-                                    icon="user"
-                                    type="text"
-                                    required
-                                    invalidFeedback="Please provide a valid name."
-                                    validFeedback="Look's good."
-                                />
-                            </div>
-                            <div class="col-md-3">
-                                <mdb-input
-                                    size="sm"
-                                    v-model="userEmail"
-                                    label="email"
-                                    icon="credit-card"
-                                    type="text"
-                                    invalidFeedback="Please provide a valid password."
-                                    validFeedback="Look's good."
-                                />
-                            </div>
-                            <div class="col-md-3">
-                                <mdb-input
-                                    size="sm"
-                                    v-model="userPassportNum"
-                                    label="№ passport"
-                                    icon="passport"
-                                    type="email"
-                                    required
-                                    invalidFeedback="Please provide a valid mail."
-                                    validFeedback="Look's good."
-                                />
+                                        class="mdForm"
+                                        size="sm"
+                                        v-model="passengers[index].lastName"
+                                        label="Last name"
+                                        icon="user"
+                                        type="text"
+                                        required
+                                        invalidFeedback="Please provide a valid name."
+                                        validFeedback="Look's good."
+                                    />
+                                </div>
+                                <div class="col-md-3">
+                                    <mdb-input
+                                        class="mdForm"
+                                        size="sm"
+                                        v-model="passengers[index].email"
+                                        label="email"
+                                        icon="credit-card"
+                                        type="text"
+                                        invalidFeedback="Please provide a valid password."
+                                        validFeedback="Look's good."
+                                    />
+                                </div>
+                                <div class="col-md-3">
+                                    <mdb-input
+                                        class="mdForm"
+                                        size="sm"
+                                        v-model="passengers[index].passportNum"
+                                        label="№ passport"
+                                        icon="passport"
+                                        type="email"
+                                        required
+                                        invalidFeedback="Please provide a valid mail."
+                                        validFeedback="Look's good."
+                                    />
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group mb-3">
-                            <div class="custom-control custom-checkbox mb-3">
+                        <div class="form-group bottom-form" v-if="selectedSeats.length != 0">
+                            <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="customControlValidation1" required>
-                                <label class="custom-control-label" for="customControlValidation1">Agree to <a href>terms and conditions</a></label>
+                                <label class="custom-control-label" for="customControlValidation1">Agree to <a href="https://www.symantec.com/content/en/us/about/downloads/symantec-online-services-agreement-2016-11-en.pdf">terms and conditions</a></label>
                             </div>
                         </div>
-                        <div class="text-center mb-3">
+                        <div class="text-center bottom-form-btn" v-if="selectedSeats.length != 0">
                             <mdb-btn gradient="blue" type="submit" rounded class="btn-block z-depth-1a">Proceed</mdb-btn>
                         </div>
                     </form>
@@ -164,29 +181,19 @@
       </div>
 </template>
 <script>
-import { mdbRow, mdbCol, mdbCard, mdbCardBody, mdbInput, mdbBtn, mdbIcon, mdbModal, mdbModalBody, mdbModalFooter } from 'mdbvue';
+import { mdbInput, mdbBtn } from 'mdbvue';
 
 export default {
     components: {
-      mdbRow,
-      mdbCol,
-      mdbCard,
-      mdbCardBody,
       mdbInput,
-      mdbBtn,
-      mdbIcon,
-      mdbModal,
-      mdbModalBody,
-      mdbModalFooter
+      mdbBtn
     },
     data() {
         return{
             selectedVagonID: 0,
             selectedSeats: [],
-            userFirstName: '',
-            userLastName: '',
-            userEmail: '',
-            userPassportNum: '',
+            passengers:[],
+            price: 11989,
             vagons:[
                 {
                     id: 0,
@@ -219,7 +226,6 @@ export default {
                     seats: [1,3,4,6]
                 }
             ]
-            
         }
     },
     methods:{
@@ -229,20 +235,87 @@ export default {
             document.getElementById('vagon' + vagonID).style.backgroundColor = "#a4a4db";
         },
         selectSeat(seatID){
-            if(document.getElementById('seat' + seatID).classList.contains("selected_seat")){
-                document.getElementById('seat' + seatID).classList.remove("selected_seat");
-                this.selectedSeats.splice(this.selectedSeats.indexOf(seatID), 1);
-                
-            } else if(document.getElementById('seat' + seatID).classList.contains('available_seat')){
-                document.getElementById('seat' + seatID).className += " selected_seat";
-                this.selectedSeats.push(seatID);
+            if(!document.getElementById('vagon' + this.selectedVagonID + '_seat' + seatID).classList.contains('unavailable_seat')){
+                if(this.selectedSeats.includes('vagon' + this.selectedVagonID + '_seat' + seatID)){
+                    this.selectedSeats.splice(this.selectedSeats.indexOf('vagon' + this.selectedVagonID + '_seat' + seatID), 1);
+                } else {
+                    if(this.selectedSeats.length < 5){
+                        this.passengers.push({
+                            firstName: '',
+                            lastName: '',
+                            email: '',
+                            passportNum: '',
+                        })
+                        this.selectedSeats.push('vagon' + this.selectedVagonID + '_seat' + seatID);
+                    } else {
+                        alert("You can't pick more that 5 seats.");
+                    }
+                }   
             }
+        },
+        deleteSeat(seat){
+            this.selectedSeats.splice(this.selectedSeats.indexOf(seat), 1);
         }
     }
 }
 </script>
 <style scoped lang="scss">
-
+/********** User ticket form **********/
+.passenger-info{
+    background: #3a3a92;
+    color: #fff;
+    padding: 6px 0;
+    h6{
+        margin-bottom: 0;
+    }
+}
+.user-select-info{
+    margin-left: 20px;
+}
+.user-input-form{
+    padding: 0 20px;
+    border-bottom: 2px solid rgba(58, 58, 146,0.7);
+    .top-form{
+        height: 48px;
+        p{
+            padding: 8px 18px;
+            margin: 0;
+            height: 42px;
+        }
+        .btn{
+            padding: 6px 18px;
+            background: #ba1433;
+            color: #fff;
+        }
+    }
+    .middle-form{
+        margin: auto 0;
+        .col-md-3{
+            max-height: 48px;
+            .mdForm{
+                margin: 0 auto;
+                color: #b0b5cc;
+            }
+        }
+    }
+}
+.bottom-form{
+    margin: 8px 20px;
+    a{
+        color: #29a3ff;
+    }
+    a:hover{
+        text-decoration: underline;
+    }
+}
+.bottom-form-btn{
+    margin: 0 24px 24px auto;
+    width: 120px;
+    button{
+        padding: 6px 12px;
+        background: linear-gradient(40deg, #377cc3, #3a3a92) !important;
+    }
+}
 /********** Seat Tooltip **********/
 
 [tooltip]:before {
