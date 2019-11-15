@@ -1,4 +1,4 @@
-<template >
+<template>
   <div>
     <table id="fifthTable">
       <thead>
@@ -68,68 +68,6 @@
         </tr>
       </tbody>
     </table>
-    <div v-if="TravelInstance==false">
-      <div class="travelInstance">
-        <section class="form-elegant">
-          <mdb-card>
-            <mdb-card-body class="mx-4 grey-text">
-              <div class="text-center">
-                <h3 class="dark-grey-text mb-5">
-                  <strong>Pasanger Info</strong>
-                </h3>
-              </div>
-              <form novalidate="true" @submit.prevent="checkForm">
-                <mdb-input
-                  v-model="firstName"
-                  type="text"
-                  icon="user"
-                  label="First name"
-                  required
-                  invalidFeedback="Please provide a valid name."
-                  validFeedback="Look's good."
-                />
-                <mdb-input
-                  v-model="lastName"
-                  label="Last name"
-                  icon="user"
-                  type="text"
-                  required
-                  invalidFeedback="Please provide a valid name."
-                  validFeedback="Look's good."
-                />
-                <mdb-input
-                  v-model="middleName"
-                  label="Middle name (Optional)"
-                  icon="store-alt"
-                  type="text"
-                />
-                <mdb-input
-                  v-model="passportNum"
-                  label="№ passport"
-                  icon="passport"
-                  type="email"
-                  required
-                  invalidFeedback="Please provide a valid mail."
-                  validFeedback="Look's good."
-                />
-                <mdb-input
-                  v-model="discontNum"
-                  label="Discont card"
-                  icon="credit-card"
-                  type="text"
-                  invalidFeedback="Please provide a valid password."
-                  validFeedback="Look's good."
-                />
-
-                <div class="text-center mb-3">
-                  <mdb-btn gradient="blue" type="submit" rounded class="btn-block z-depth-1a">Buy</mdb-btn>
-                </div>
-              </form>
-            </mdb-card-body>
-          </mdb-card>
-        </section>
-      </div>
-    </div>
   </div>
 </template>
 <script>

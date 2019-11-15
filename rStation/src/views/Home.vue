@@ -80,9 +80,9 @@
         <div class="kz-map">
             <MainMap :kzCities="kzCities"></MainMap>
         </div>
-        <!-- <div v-if="showSchedule">
+        <div v-if="!showSchedule">
             <ScheduleTable :schedules="schedules"></ScheduleTable>
-            </div> -->
+        </div>
     </div>
 </template>
 <script>
