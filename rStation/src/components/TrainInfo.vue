@@ -4,7 +4,7 @@
       <div class="content__block content__block--no-margin">
          <div class="content__lead row">
            <div class="col-md-9">Please pick a carriage and seat(s)</div> 
-           <div class="col-md-3 go-back-train"><i class="fas fa-caret-left"></i> Go back to all Options</div>
+           <div class="col-md-3 go-back-train" v-on:click="$parent.showAllSchedule()"><i class="fas fa-caret-left"></i> Go back to all Options</div>
          </div>
          <div class="js-train js_toggle second" data-car-class="second" style="display: block;">
             <div class="train train--kz js-car_select_item car_select_item second active" data-car-class="second">

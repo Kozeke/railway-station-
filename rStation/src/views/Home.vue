@@ -19,7 +19,7 @@
                                                         <div class="form-group col-4">
                                                             <label class="form-group">
                                                                 <p class="enter-names enter-names-to">From:</p>
-                                                                <autocomplete-vue :v-model="stationFrom" :list="kzCities" property="city" placeholder="Choose Station..." classPrefix="pick-station" inputClass="pick-input" :threshold="1"></autocomplete-vue>
+                                                                <autocomplete-vue class="station-input" :v-model="stationFrom" :list="kzCities" property="city" placeholder="Choose Station..." classPrefix="pick-station" inputClass="pick-input" :threshold="1"></autocomplete-vue>
                                                                 <!-- <select @change="selectFrom($event)" class="form-control" name="movies">
                                                                     <option value="Station From" disabled selected>Station From</option>
                                                                     <option v-for="city in kzCities" :key="city.city" :selected="stationFrom === city.city">{{city.city}}</option>
@@ -60,16 +60,17 @@
                 </div>
             </div>
         </section>
+
         <div v-if="travelInstance">
-          <TrainInfo></TrainInfo>
+          <TrainInfo ref="showAllSchedule"></TrainInfo>
         </div>
         <div class="kz-map">
             <MainMap :kzCities="kzCities"></MainMap>
         </div>
-        <div v-if="showSchedule && showAllSchedule">
+        <div v-if="showSchedule && allSchedule">
             <ScheduleTable :schedules="schedules" ref="showTravelInstance"></ScheduleTable>
         </div>
-        <div v-if="!showAllSchedule">
+        <div v-if="!allSchedule">
             <ScheduleTable :schedules="passSchedule" ref="showTravelInstance"></ScheduleTable>
         </div>
     </div>
@@ -95,7 +96,7 @@ export default {
         stationTo: '',
         Datee: null,
         showSchedule: false,  
-        showAllSchedule: true,
+        allSchedule: true,
         travelInstance: false,
         passSchedule: [],
         schedules:[
@@ -121,6 +122,14 @@ export default {
     }
   },
   mounted() {
+  
+    var inputs = document.getElementsByClassName('pick-input');
+    for( let i = 0; i < inputs.length; i++ ){
+      inputs[i].style.height = "40px";
+      inputs[i].style.width = "100%";
+      inputs[i].style.padding = "0px 16px";
+    }
+   
     if (localStorage.stationFrom && localStorage.stationTo) {
       this.stationFrom = localStorage.stationFrom;
       this.stationTo = localStorage.stationTo;
@@ -185,7 +194,12 @@ export default {
       this.travelInstance = true;
       this.passSchedule.push({selectSchedule});
       if(this.passSchedule.length > 1) this.passSchedule.shift();
-      this.showAllSchedule = false;
+      this.allSchedule = false;
+    },
+    showAllSchedule(){
+      this.travelInstance = false;
+      this.allSchedule = true;
+      this.passSchedule.pop();
     }
   },
   computed: {}
@@ -199,9 +213,9 @@ export default {
     overflow: hidden;
     background: #fff;
     border: rgba(0,0,0,0.8);
-    .pick-input{
-        border: none;
-    }
+    border-radius: .25rem;
+    height: 40px;
+    width: 100%;
 }
 .home{
   width: 100%;
@@ -281,7 +295,7 @@ export default {
     font-weight: 500;
   }
   .swap-icon {
-    margin-top: 38px;
+    margin-top: 44px;
     .fas {
       padding-top: 8px;
       padding-left: 8px;
@@ -301,11 +315,10 @@ export default {
 }
 
 .booking-form .form-control {
-  background-color: rgba(255, 255, 255, 0.6);
   height: 40px;
   padding: 0px 16px;
   border: none;
-  color: #fff;
+  color: #000;
   -webkit-box-shadow: 0px 0px 0px 2px transparent;
   box-shadow: 0px 0px 0px 2px transparent;
   -webkit-transition: 0.2s;
