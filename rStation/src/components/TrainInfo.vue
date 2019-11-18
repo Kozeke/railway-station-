@@ -2,7 +2,10 @@
     <div class="gd-booking js_container_booking_info" data-seats_position="жоғарғы,төмеңгі,орташа" style="display: block;">
       <!-- car select -->
       <div class="content__block content__block--no-margin">
-         <div class="content__lead row">Please pick a carriage and seat(s)</div>
+         <div class="content__lead row">
+           <div class="col-md-9">Please pick a carriage and seat(s)</div> 
+           <div class="col-md-3 go-back-train"><i class="fas fa-caret-left"></i> Go back to all Options</div>
+         </div>
          <div class="js-train js_toggle second" data-car-class="second" style="display: block;">
             <div class="train train--kz js-car_select_item car_select_item second active" data-car-class="second">
                <div class="col-4 col-l-12">
@@ -348,7 +351,7 @@ export default {
     left: 0; 
     right: 0; 
     margin: 15% auto auto auto;
-    width: 800px;
+    width: 70%;
     z-index: 20;
 }
 .content__block--no-margin {
@@ -376,12 +379,22 @@ export default {
   font-weight: bold;
   padding: 20px;
   color: #4a4a4a;
+  .go-back-train{
+    background: rgba(68, 71, 92, 0.5);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1.8;
+  }
+  .go-back-train:hover{
+    color: #000;
+    text-decoration: underline;
+  }
 }
 .row {
   margin-left: -10px;
   margin-right: -10px;
   clear: both;
-  display: block;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -644,6 +657,7 @@ export default {
   overflow: auto;
   font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
   clear: both;
+  // text-align: center;
 }
 
 .wagon-block {
@@ -661,11 +675,11 @@ export default {
   position: relative;
   display: inline-block;
   min-height: 110px;
-  margin: 15px auto;
+  margin: 15px -800px 15px 32px;
   background: #ffffff;
   border: 3px solid #aebad2;
-  margin-right: -778px;
-  overflow-x: scroll;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 .ktg * {
   -webkit-box-sizing: border-box;

@@ -1,7 +1,7 @@
 <template>
     <div class="home">
     <!-- ** Search Form Area ** -->
-        <section class="dorne-welcome-area bg-img bg-overlay" style="display:none">
+        <section class="dorne-welcome-area bg-img bg-overlay">
             <div class="container h-100">
                 <div class="row h-100 align-items-center justify-content-center">
                     <div class="col-12 col-md-10">
@@ -19,7 +19,7 @@
                                                         <div class="form-group col-4">
                                                             <label class="form-group">
                                                                 <p class="enter-names enter-names-to">From:</p>
-                                                                <autocomplete-vue v-model="stationFrom" :list="kzCities" property="city" placeholder="Choose Station..." classPrefix="pick-station" inputClass="pick-input" threshold="1"></autocomplete-vue>
+                                                                <autocomplete-vue :v-model="stationFrom" :list="kzCities" property="city" placeholder="Choose Station..." classPrefix="pick-station" inputClass="pick-input" :threshold="1"></autocomplete-vue>
                                                                 <!-- <select @change="selectFrom($event)" class="form-control" name="movies">
                                                                     <option value="Station From" disabled selected>Station From</option>
                                                                     <option v-for="city in kzCities" :key="city.city" :selected="stationFrom === city.city">{{city.city}}</option>
@@ -34,7 +34,7 @@
                                                         <div class="form-group col-4">
                                                             <label class="form-group">
                                                                 <p class="enter-names enter-names-to">To:</p>
-                                                                <autocomplete-vue v-model="stationTo" :list="kzCities" property="city" placeholder="Choose Station..." classPrefix="pick-station" inputClass="pick-input" threshold="1"></autocomplete-vue>
+                                                                <autocomplete-vue :v-model="stationTo" :list="kzCities" property="city" placeholder="Choose Station..." classPrefix="pick-station" inputClass="pick-input" :threshold="1"></autocomplete-vue>
                                                             </label>
                                                         </div>
                                                         <div class="form-group form-group-date col-4">
@@ -53,35 +53,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group col-4">
-                                <label class="form-group">
-                                    <p class="enter-names enter-names-to">To:</p>
-                                    <select @change="selectTo($event)" class="form-control" name="movies">
-                                        <option value="Station To" disabled selected>Station To</option>
-                                        <option v-for="marker in markers" :key="marker.station" :selected="stationTo === marker.station">{{marker.station}}</option>
-                                    </select>
-                                </label>
-                            </div>
-                            <div class="form-group form-group-date col-4">
-                                <label class="form-group">
-                                    <p class="enter-names enter-names-to">Date:</p>
-                                    <input :value="Datee" @input="updateValue($event.target.value)" id="dateTime" class="form-control" type="date" required />
-                                </label>
-                            </div>
+                            
                         </div>
                     </div>
-                    <div class="form-btn">
-                        <button type="button" @click="showSchedules()" class="btn btn-danger">Search</button>
-                    </div>
+       
                 </div>
             </div>
         </section>
-        <TrainInfo></TrainInfo>
+        <div v-if="travelInstance">
+          <TrainInfo></TrainInfo>
+        </div>
         <div class="kz-map">
             <MainMap :kzCities="kzCities"></MainMap>
         </div>
-        <div v-if="!showSchedule">
-            <ScheduleTable :schedules="schedules"></ScheduleTable>
+        <div v-if="showSchedule && showAllSchedule">
+            <ScheduleTable :schedules="schedules" ref="showTravelInstance"></ScheduleTable>
+        </div>
+        <div v-if="!showAllSchedule">
+            <ScheduleTable :schedules="passSchedule" ref="showTravelInstance"></ScheduleTable>
         </div>
     </div>
 </template>
@@ -102,21 +91,33 @@ export default {
   data() {
     return {
         kzCities: json,
-        stationFrom: "",
-        stationTo: "",
+        stationFrom: '',
+        stationTo: '',
         Datee: null,
         showSchedule: false,  
+        showAllSchedule: true,
+        travelInstance: false,
+        passSchedule: [],
         schedules:[
-            {
-                TravelInstanceID: 1,
-                TrainName: 'ABC',
-                TrainType: ['talgo', 'lux'],
-                from: 'Astana',
-                to: 'Almaty',
-                DepartureTime: '12-12-2019',
-                ArrivalTime: '12-12-2019',
-            }
-        ]
+                    {
+                      TravelInstanceID: 1,
+                      TrainName: 'ABC',
+                      TrainType: ['talgo', 'lux'],
+                      from: 'Astana',
+                      to: 'Almaty',
+                      DepartureTime: '12-12-2019',
+                      ArrivalTime: '12-12-2019',
+                    },
+                    {
+                      TravelInstanceID: 2,
+                      TrainName: 'ABC',
+                      TrainType: ['talgo', 'lux'],
+                      from: 'Astana',
+                      to: 'Almaty',
+                      DepartureTime: '12-12-2019',
+                      ArrivalTime: '12-12-2019',
+                    }
+                  ]
     }
   },
   mounted() {
@@ -160,7 +161,8 @@ export default {
       this.Datee = val;
     },
     showSchedules() {
-      location.reload();
+      this.showSchedule = true;
+      // location.reload();
       //   if(this.stationFrom && this.stationTo && this.Date){
       //       axios.get('http://localhost:8080/databind/api/schedules?from='+ this.stationFrom + '&to=' + this.stationTo + '&date=' + this.Date,{
       //         header:{
@@ -178,6 +180,12 @@ export default {
       //           console.log(e);
       //       })
       //     }
+    },
+    showTravelInstance(selectSchedule){
+      this.travelInstance = true;
+      this.passSchedule.push({selectSchedule});
+      if(this.passSchedule.length > 1) this.passSchedule.shift();
+      this.showAllSchedule = false;
     }
   },
   computed: {}
@@ -233,12 +241,12 @@ export default {
   background-size: cover;
   border-radius: 5px;
   z-index: 20;
-  opacity: 0.5;
+  opacity: 1;   // Change opacity value to see MAP clear and add :hover below
   max-height: 300px;
 }
-.booking-form:hover {
-  opacity: 0.8;
-}
+// .booking-form:hover {
+//   opacity: 0.8;
+// }
 .booking-form::before {
   content: "";
   position: absolute;
@@ -273,7 +281,7 @@ export default {
     font-weight: 500;
   }
   .swap-icon {
-    margin-top: 43px;
+    margin-top: 38px;
     .fas {
       padding-top: 8px;
       padding-left: 8px;

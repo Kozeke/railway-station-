@@ -58,11 +58,11 @@
           <td>
             <div>
               мест:12
-              <button class="button" v-on:click="TrainInstance">Выбрать</button>
+              <button class="button" v-on:click="$parent.showTravelInstance(schedule)">Выбрать</button>
             </div>
             <div>
               мест:32
-              <button class="button" v-on:click="TrainInstance">Выбрать</button>
+              <button class="button" v-on:click="$parent.showTravelInstance(schedule)">Выбрать</button>
             </div>
           </td>
         </tr>
@@ -71,34 +71,9 @@
   </div>
 </template>
 <script>
-/* eslint-disable */
-import {
-  mdbRow,
-  mdbCol,
-  mdbCard,
-  mdbCardBody,
-  mdbInput,
-  mdbBtn,
-  mdbIcon,
-  mdbModal,
-  mdbModalBody,
-  mdbModalFooter
-} from "mdbvue";
 import axios from "axios";
 export default {
   name: "FormsPage",
-  components: {
-    mdbRow,
-    mdbCol,
-    mdbCard,
-    mdbCardBody,
-    mdbInput,
-    mdbBtn,
-    mdbIcon,
-    mdbModal,
-    mdbModalBody,
-    mdbModalFooter
-  },
   props: ["schedules"],
   data() {
     return {
@@ -113,7 +88,7 @@ export default {
     };
   },
   mounted() {
-    console.log(this.schedules);
+    
   },
   methods: {
     TrainInstance() {
@@ -132,8 +107,8 @@ export default {
   background: #fff;
   position: relative;
   z-index: 20;
-  opacity: 0.8;
-  width: 80%;
+  opacity: 1;  // Change opacity value to see MAP clear and add :hover below
+  width: 70%;
 }
 table th {
   text-transform: uppercase;
