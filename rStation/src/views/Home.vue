@@ -1,6 +1,7 @@
 <template>
-  <div class="home">
+    <div class="home">
     <!-- ** Search Form Area ** -->
+<<<<<<< HEAD
 
     <section class="dorne-welcome-area bg-img bg-overlay">
       <div class="container h-100">
@@ -88,15 +89,81 @@
                           >
                             Search
                           </button>
+=======
+        <section class="dorne-welcome-area bg-img bg-overlay">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center justify-content-center">
+                    <div class="col-12 col-md-10">
+                        <div id="booking" class="section">
+                            <div class="section-center">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="booking-form">
+                                            <div class="form-header">
+                                                <h1>Make your reservation</h1>
+                                            </div>
+                                            <form>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="form-group col-4">
+                                                            <label class="form-group">
+                                                                <p class="enter-names enter-names-to">From:</p>
+                                                                <autocomplete-vue class="station-input" :v-model="stationFrom" :list="kzCities" property="city" placeholder="Choose Station..." classPrefix="pick-station" inputClass="pick-input" :threshold="1"></autocomplete-vue>
+                                                                <!-- <select @change="selectFrom($event)" class="form-control" name="movies">
+                                                                    <option value="Station From" disabled selected>Station From</option>
+                                                                    <option v-for="city in kzCities" :key="city.city" :selected="stationFrom === city.city">{{city.city}}</option>
+                                                                </select> -->
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group col-1">
+                                                            <div class="swap-icon">
+                                                                <i @click="swapStations()" class="fas fa-exchange-alt"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-4">
+                                                            <label class="form-group">
+                                                                <p class="enter-names enter-names-to">To:</p>
+                                                                <autocomplete-vue :v-model="stationTo" :list="kzCities" property="city" placeholder="Choose Station..." classPrefix="pick-station" inputClass="pick-input" :threshold="1"></autocomplete-vue>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group form-group-date col-4">
+                                                            <label class="form-group">
+                                                                <p class="enter-names enter-names-to">Date:</p>
+                                                                <input :value="Datee" @input="updateValue($event.target.value)" id="dateTime" class="form-control" type="date" required>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-btn">
+                                                    <button type="button" @click="showSchedules()" class="btn btn-danger">Search</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+>>>>>>> 9f4fa3aca354b14edaf64bbaefdb982a32426b02
                         </div>
-                      </form>
                     </div>
-                  </div>
+       
                 </div>
-              </div>
             </div>
-          </div>
+        </section>
+
+        <div v-if="travelInstance">
+          <TrainInfo ref="showAllSchedule"></TrainInfo>
         </div>
+        <div class="kz-map">
+            <MainMap :kzCities="kzCities"></MainMap>
+        </div>
+        <div v-if="showSchedule && allSchedule">
+            <ScheduleTable :schedules="schedules" ref="showTravelInstance"></ScheduleTable>
+        </div>
+        <div v-if="!allSchedule">
+            <ScheduleTable :schedules="passSchedule" ref="showTravelInstance"></ScheduleTable>
+        </div>
+<<<<<<< HEAD
       </div>
     </section>
     <TrainInfo></TrainInfo>
@@ -105,10 +172,12 @@
     </div>
     <div v-if="showSchedule">
       <ScheduleTable :schedules="schedules"></ScheduleTable>
+=======
+>>>>>>> 9f4fa3aca354b14edaf64bbaefdb982a32426b02
     </div>
-  </div>
 </template>
 <script>
+<<<<<<< HEAD
 import MainMap from "../components/MainMap.vue";
 import ScheduleTable from "../components/ScheduleTable.vue";
 
@@ -217,8 +286,62 @@ export default {
         }
       ]
     };
+=======
+import MainMap from '../components/MainMap.vue'
+import ScheduleTable from '../components/ScheduleTable.vue'
+import TrainInfo from '../components/TrainInfo.vue'
+import AutocompleteVue from 'autocomplete-vue'
+import json from '../assets/kz.json'
+
+export default {
+    components:{
+        MainMap,
+        ScheduleTable,
+        TrainInfo,
+        'autocomplete-vue': AutocompleteVue
+    },
+  data() {
+    return {
+        kzCities: json,
+        stationFrom: '',
+        stationTo: '',
+        Datee: null,
+        showSchedule: false,  
+        allSchedule: true,
+        travelInstance: false,
+        passSchedule: [],
+        schedules:[
+                    {
+                      TravelInstanceID: 1,
+                      TrainName: 'ABC',
+                      TrainType: ['talgo', 'lux'],
+                      from: 'Astana',
+                      to: 'Almaty',
+                      DepartureTime: '12-12-2019',
+                      ArrivalTime: '12-12-2019',
+                    },
+                    {
+                      TravelInstanceID: 2,
+                      TrainName: 'ABC',
+                      TrainType: ['talgo', 'lux'],
+                      from: 'Astana',
+                      to: 'Almaty',
+                      DepartureTime: '12-12-2019',
+                      ArrivalTime: '12-12-2019',
+                    }
+                  ]
+    }
+>>>>>>> 9f4fa3aca354b14edaf64bbaefdb982a32426b02
   },
   mounted() {
+  
+    var inputs = document.getElementsByClassName('pick-input');
+    for( let i = 0; i < inputs.length; i++ ){
+      inputs[i].style.height = "40px";
+      inputs[i].style.width = "100%";
+      inputs[i].style.padding = "0px 16px";
+    }
+   
     if (localStorage.stationFrom && localStorage.stationTo) {
       this.stationFrom = localStorage.stationFrom;
       this.stationTo = localStorage.stationTo;
@@ -259,7 +382,8 @@ export default {
       this.Datee = val;
     },
     showSchedules() {
-      location.reload();
+      this.showSchedule = true;
+      // location.reload();
       //   if(this.stationFrom && this.stationTo && this.Date){
       //       axios.get('http://localhost:8080/databind/api/schedules?from='+ this.stationFrom + '&to=' + this.stationTo + '&date=' + this.Date,{
       //         header:{
@@ -277,6 +401,17 @@ export default {
       //           console.log(e);
       //       })
       //     }
+    },
+    showTravelInstance(selectSchedule){
+      this.travelInstance = true;
+      this.passSchedule.push({selectSchedule});
+      if(this.passSchedule.length > 1) this.passSchedule.shift();
+      this.allSchedule = false;
+    },
+    showAllSchedule(){
+      this.travelInstance = false;
+      this.allSchedule = true;
+      this.passSchedule.pop();
     }
   },
   computed: {}
@@ -284,7 +419,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+<<<<<<< HEAD
 .home {
+=======
+.pick-station{
+    z-index: 20;
+    position: absolute;
+    overflow: hidden;
+    background: #fff;
+    border: rgba(0,0,0,0.8);
+    border-radius: .25rem;
+    height: 40px;
+    width: 100%;
+}
+.home{
+>>>>>>> 9f4fa3aca354b14edaf64bbaefdb982a32426b02
   width: 100%;
   height: 945px;
   position: relative;
@@ -322,12 +471,12 @@ export default {
   background-size: cover;
   border-radius: 5px;
   z-index: 20;
-  opacity: 0.5;
+  opacity: 1;   // Change opacity value to see MAP clear and add :hover below
   max-height: 300px;
 }
-.booking-form:hover {
-  opacity: 0.8;
-}
+// .booking-form:hover {
+//   opacity: 0.8;
+// }
 .booking-form::before {
   content: "";
   position: absolute;
@@ -362,7 +511,7 @@ export default {
     font-weight: 500;
   }
   .swap-icon {
-    margin-top: 43px;
+    margin-top: 44px;
     .fas {
       padding-top: 8px;
       padding-left: 8px;
@@ -382,11 +531,10 @@ export default {
 }
 
 .booking-form .form-control {
-  background-color: rgba(255, 255, 255, 0.6);
   height: 40px;
   padding: 0px 16px;
   border: none;
-  color: #fff;
+  color: #000;
   -webkit-box-shadow: 0px 0px 0px 2px transparent;
   box-shadow: 0px 0px 0px 2px transparent;
   -webkit-transition: 0.2s;

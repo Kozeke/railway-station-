@@ -8,30 +8,32 @@
                     <!-- Nav -->
                     <div class="collapse navbar-collapse" id="dorneNav">
                         <ul class="navbar-nav mr-auto" id="dorneMenu">
-                            <li class="nav-item active">
-                                <a class="nav-link">Home <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Passenger <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" @click="$router.push('/')">Home</a>
-                                    <a class="dropdown-item" @click="$router.push('/')">Passenger</a>
-                                    <a class="dropdown-item" @click="$router.push('/')">Listing</a>
-                                    <a class="dropdown-item" @click="$router.push('/')">Single Listing</a>
-                                    <a class="dropdown-item" @click="$router.push('/')">Contact</a>
-                                </div>
+                            <li class="nav-item">
+                                <a class="nav-link" @click="$router.push('/')">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" @click="$router.push('/')">Contact</a>
+                                <a class="nav-link" @click="$router.push('/')">About</a>
                             </li>
                         </ul>
                         <!-- Search btn -->
-                        <div class="dorne-signin-btn">
+                        <div class="dorne-signin-btn" v-if="!isUser">
                             <a @click="$router.push('/login')">Sign in</a>
                         </div>
                         <!-- Signin btn -->
-                        <div class="dorne-signin-btn">
+                        <div class="dorne-signin-btn" v-if="!isUser">
                             <a @click="$router.push('/register')">Register</a>
+                        </div>
+                        <div class="dorne-signin-btn" v-if="isUser">
+                            <mdb-dropdown class="user-dropdown">
+                                <mdb-dropdown-toggle class="user-btn text-capitalize" slot="toggle">User Name<i class="fas fa-caret-down"></i><img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="" alt="avatar"></mdb-dropdown-toggle>
+                                <mdb-dropdown-menu>
+                                <mdb-dropdown-item class="user-li" @click="$router.push('/profile')"><i class="fas fa-user-circle"></i>Profile</mdb-dropdown-item>
+                                <mdb-dropdown-item class="user-li" @click="$router.push('/bookings')"><i class="fas fa-history"></i>Bookings</mdb-dropdown-item>
+                                <mdb-dropdown-item class="user-li" @click="$router.push('/settings')"><i class="fas fa-user-cog"></i>Settings</mdb-dropdown-item>
+                                <div class="dropdown-divider"></div>
+                                <mdb-dropdown-item class="user-li" @click="logOut()"><i class="fas fa-power-off"></i>Log out</mdb-dropdown-item>
+                                </mdb-dropdown-menu>
+                            </mdb-dropdown>
                         </div>
                     </div>
                 </nav>
@@ -40,12 +42,25 @@
     </header>
 </template>
 <script>
+import { mdbDropdown, mdbDropdownItem, mdbDropdownMenu, mdbDropdownToggle } from 'mdbvue';
+
 export default {
+    components: {
+      mdbDropdown,
+      mdbDropdownItem,
+      mdbDropdownMenu,
+      mdbDropdownToggle
+    },
     data(){
         return {
             isSticky: false,
-            i:0
+            i:0,
+            isUser: false
         }
+    },
+    mounted: function () {
+        this.isUser = false;
+        if(localStorage.getItem('data').length > 20) this.isUser = true;
     },
     methods: {
         handleScroll(event) {
@@ -56,6 +71,10 @@ export default {
             if(window.scrollY > 50){
                 this.isSticky = true
             }
+        },
+        logOut(){
+            localStorage.removeItem('data');
+            this.isUser = false;
         }
     },
     created() {
@@ -116,7 +135,7 @@ export default {
 
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-item.active .nav-link {
-    color: #7643ea;
+    color: #44475c;
 }
 
 .dorne-search-btn > a,
@@ -125,6 +144,37 @@ export default {
     display: inline-block;
     margin-right: 40px;
     font-size: 15px;
+}
+.dorne-signin-btn .user-dropdown{
+    img{
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+    }
+    .user-btn{
+        color: #fff;
+        box-shadow: none;
+        cursor: pointer;
+        font-size: 15px;
+    }
+    .user-btn:hover{
+        background: none;
+        color: #44475c;
+    }
+    .user-li{
+        padding: 6px 4px 6px 16px;
+        font-size: 15px;
+    }
+    .user-li:hover{
+        background:#44475c;
+        color: #fff !important;
+    }
+    .fas{
+        line-height: 1.8;
+        margin-left: 4px;
+        margin-right: 8px;
+        font-size: 18px;
+    }
 }
 
 .dorne-search-btn > a i {
