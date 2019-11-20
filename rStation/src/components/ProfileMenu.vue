@@ -9,6 +9,10 @@
         <i class="fas fa-map-marked-alt"></i>
         <span>Routes</span>
       </li>
+      <li class="menu-list-item" @click="$router.push('/trains')">
+        <i class="fas fa-train"></i>
+        <span>Trains</span>
+      </li>
       <li class="menu-list-item" @click="$router.push('/employeeSchedule')">
         <i class="fas fa-user"></i>
         <span>Employer Schedule</span>
@@ -23,7 +27,7 @@
         <span>Settings</span>
       </li>
 
-      <li class="menu-list-item" @click="$router.push('/login')">
+      <li class="menu-list-item" @click="SingOut()">
         <i class="fas fa-power-off"></i>
         <span>Sign out</span>
       </li>
@@ -31,7 +35,19 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    SingOut() {
+      console.log("logging out");
+      localStorage.removeItem("data");
+
+      this.$router.push("/login");
+    }
+  }
+};
 </script>
 <style lang="scss" scoped>
 .menu-list {

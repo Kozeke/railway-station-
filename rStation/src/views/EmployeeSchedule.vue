@@ -3,7 +3,11 @@
     <div class="row menu-items">
       <ProfileMenu></ProfileMenu>
       <div class="menu-data row col-sm-10">
-        <BookingModal :booking="temp" v-if="showModal" @close="showModal = false"></BookingModal>
+        <BookingModal
+          :booking="temp"
+          v-if="showModal"
+          @close="showModal = false"
+        ></BookingModal>
         <table>
           <thead>
             <tr class="table-headers">
@@ -18,7 +22,7 @@
           </thead>
           <tbody>
             <tr v-for="employer in employers" :key="employer">
-              <td class="bookingId">{{employer.EmployerId}}</td>
+              <td class="bookingId">{{ employer.EmployerId }}</td>
               <td v-on:click="updateName(employer)">
                 <input
                   :id="employer.EmployerId"
@@ -30,7 +34,7 @@
 
               <td v-on:click="updateWorkDays(employer)">
                 <input
-                  :id="employer.EmployerId+'workdays'"
+                  :id="employer.EmployerId + 'workdays'"
                   type="text"
                   v-model="employer.EmployerWorkDays"
                   disabled
@@ -38,7 +42,7 @@
               </td>
               <td v-on:click="updateWorkStation(employer)">
                 <input
-                  :id="employer.EmployerId+'station'"
+                  :id="employer.EmployerId + 'station'"
                   type="text"
                   v-model="employer.WorkingStation"
                   disabled
@@ -46,13 +50,13 @@
               </td>
               <td v-on:click="updateSalary(employer)">
                 <input
-                  :id="employer.EmployerId+'salary'"
+                  :id="employer.EmployerId + 'salary'"
                   type="text"
                   v-model="employer.Salary"
                   disabled
                 />
               </td>
-              <td>{{OverallHours}}</td>
+              <td>{{ OverallHours }}</td>
               <td v-on:click="Delete(employer)" style="text-align:center">
                 <i class="fas fa-trash"></i>
               </td>
@@ -153,19 +157,31 @@ export default {
     },
     getEmployers() {
       let _this = this;
-      get(
-        this,
-        "/api/product/locality",
-        {
-          params: {
-            locality_id: product.locality_id
+      axios
+        .get(
+          "http://10.3.30.241/databind/api/schedules?from=" +
+            this.stationFrom +
+            "&to=" +
+            this.stationTo +
+            "&date=" +
+            this.Date,
+          {
+            header: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
+              "Access-Control-Allow-Headers":
+                "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+            }
           }
-        },
-        function(response) {},
-        function(error) {
-          console.log("got error", error);
-        }
-      );
+        )
+        .then(response => {
+          this.schedules = response.data;
+          this.showSchedule = true;
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
     }
   },
   computed: {

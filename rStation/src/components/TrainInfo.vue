@@ -231,6 +231,9 @@ export default {
             ]
         }
     },
+    computed:{
+      
+    },
     methods:{
         selectVagon(vagonID){
             if(this.selectedVagonID) document.getElementById('vagon' + this.selectedVagonID).style.backgroundColor = "#ffffff";

@@ -1,8 +1,6 @@
 <template>
-    <div class="home">
-    <!-- ** Search Form Area ** -->
-<<<<<<< HEAD
-
+  <div class="home">
+    <!-- Search Form Area -->
     <section class="dorne-welcome-area bg-img bg-overlay">
       <div class="container h-100">
         <div class="row h-100 align-items-center justify-content-center">
@@ -30,20 +28,17 @@
                                     >Station From</option
                                   >
                                   <option
-                                    v-for="marker in markers"
-                                    :key="marker.station"
-                                    :selected="stationFrom === marker.station"
-                                    >{{ marker.station }}</option
+                                    v-for="city in kzCities"
+                                    :key="city.StationID"
+                                    :selected="stationFrom === city.name"
+                                    >{{ city.name }}</option
                                   >
                                 </select>
                               </label>
                             </div>
                             <div class="form-group col-1">
-                              <div class="swap-icon">
-                                <i
-                                  @click="swapStations()"
-                                  class="fas fa-exchange-alt"
-                                ></i>
+                              <div class="swap-icon" @click="swapStations()">
+                                <i class="fas fa-exchange-alt"></i>
                               </div>
                             </div>
                             <div class="form-group col-4">
@@ -54,14 +49,14 @@
                                   class="form-control"
                                   name="movies"
                                 >
-                                  <option value="Station To" disabled selected
+                                  <option value="Station From" disabled selected
                                     >Station To</option
                                   >
                                   <option
-                                    v-for="marker in markers"
-                                    :key="marker.station"
-                                    :selected="stationTo === marker.station"
-                                    >{{ marker.station }}</option
+                                    v-for="city in kzCities"
+                                    :key="city.StationID"
+                                    :selected="stationTo === city.name"
+                                    >{{ city.name }}</option
                                   >
                                 </select>
                               </label>
@@ -89,276 +84,103 @@
                           >
                             Search
                           </button>
-=======
-        <section class="dorne-welcome-area bg-img bg-overlay">
-            <div class="container h-100">
-                <div class="row h-100 align-items-center justify-content-center">
-                    <div class="col-12 col-md-10">
-                        <div id="booking" class="section">
-                            <div class="section-center">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="booking-form">
-                                            <div class="form-header">
-                                                <h1>Make your reservation</h1>
-                                            </div>
-                                            <form>
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="form-group col-4">
-                                                            <label class="form-group">
-                                                                <p class="enter-names enter-names-to">From:</p>
-                                                                <autocomplete-vue class="station-input" :v-model="stationFrom" :list="kzCities" property="city" placeholder="Choose Station..." classPrefix="pick-station" inputClass="pick-input" :threshold="1"></autocomplete-vue>
-                                                                <!-- <select @change="selectFrom($event)" class="form-control" name="movies">
-                                                                    <option value="Station From" disabled selected>Station From</option>
-                                                                    <option v-for="city in kzCities" :key="city.city" :selected="stationFrom === city.city">{{city.city}}</option>
-                                                                </select> -->
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-group col-1">
-                                                            <div class="swap-icon">
-                                                                <i @click="swapStations()" class="fas fa-exchange-alt"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group col-4">
-                                                            <label class="form-group">
-                                                                <p class="enter-names enter-names-to">To:</p>
-                                                                <autocomplete-vue :v-model="stationTo" :list="kzCities" property="city" placeholder="Choose Station..." classPrefix="pick-station" inputClass="pick-input" :threshold="1"></autocomplete-vue>
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-group form-group-date col-4">
-                                                            <label class="form-group">
-                                                                <p class="enter-names enter-names-to">Date:</p>
-                                                                <input :value="Datee" @input="updateValue($event.target.value)" id="dateTime" class="form-control" type="date" required>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-btn">
-                                                    <button type="button" @click="showSchedules()" class="btn btn-danger">Search</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
->>>>>>> 9f4fa3aca354b14edaf64bbaefdb982a32426b02
                         </div>
+                      </form>
                     </div>
-       
+                  </div>
                 </div>
+              </div>
             </div>
-        </section>
-
-        <div v-if="travelInstance">
-          <TrainInfo ref="showAllSchedule"></TrainInfo>
+          </div>
         </div>
-        <div class="kz-map">
-            <MainMap :kzCities="kzCities"></MainMap>
-        </div>
-        <div v-if="showSchedule && allSchedule">
-            <ScheduleTable :schedules="schedules" ref="showTravelInstance"></ScheduleTable>
-        </div>
-        <div v-if="!allSchedule">
-            <ScheduleTable :schedules="passSchedule" ref="showTravelInstance"></ScheduleTable>
-        </div>
-<<<<<<< HEAD
       </div>
     </section>
-    <TrainInfo></TrainInfo>
+    <div v-if="travelInstance">
+      <TrainInfo ref="showAllSchedule"></TrainInfo>
+    </div>
     <div class="kz-map">
-      <MainMap :markers="markers"></MainMap>
+      <MainMap :kzCities="kzCities"></MainMap>
     </div>
     <div v-if="showSchedule">
-      <ScheduleTable :schedules="schedules"></ScheduleTable>
-=======
->>>>>>> 9f4fa3aca354b14edaf64bbaefdb982a32426b02
+      <ScheduleTable
+        :schedules="schedules"
+        ref="showTravelInstance"
+      ></ScheduleTable>
     </div>
+    <div v-if="!allSchedule">
+      <ScheduleTable
+        :schedules="passSchedule"
+        ref="showTravelInstance"
+      ></ScheduleTable>
+    </div>
+  </div>
 </template>
 <script>
-<<<<<<< HEAD
 import MainMap from "../components/MainMap.vue";
 import ScheduleTable from "../components/ScheduleTable.vue";
+import TrainInfo from "../components/TrainInfo.vue";
+import json from "../assets/kz.json";
+import axios from "axios";
 
 export default {
   components: {
     MainMap,
-    ScheduleTable
+    ScheduleTable,
+    TrainInfo
   },
   data() {
     return {
-      stationFrom: null,
-      stationTo: null,
+      kzCities: json,
+      stationFrom: "",
+      stationTo: "",
       Datee: null,
-      showSchedule: true,
+      showSchedule: false,
+      allSchedule: true,
+      travelInstance: false,
+      passSchedule: [],
       schedules: [
         {
           TravelInstanceID: 1,
-          TrainName: "706T",
+          TrainName: "ABC",
           TrainType: ["talgo", "lux"],
-          TrainFrom: "Петропавл",
-          TrainTo: "Алматы 2",
-          ClientFrom: "Нурсултан",
-          ClientTo: "Алматы",
+          from: "Astana",
+          to: "Almaty",
           DepartureTime: "12-12-2019",
-          ArrivalTime: "12-12-2019",
-          KupePrice: 16567,
-          LuxPrice: 19340
+          ArrivalTime: "12-12-2019"
         },
         {
           TravelInstanceID: 2,
-          TrainName: "540x",
+          TrainName: "ABC",
           TrainType: ["talgo", "lux"],
-          TrainFrom: "Актау",
-          TrainTo: "Кызылорда",
-          ClientFrom: "Жезказган",
-          ClientTo: "Шымкент",
-          DepartureTime: "01-10-2019",
-          ArrivalTime: "02-10-2019",
-          KupePrice: 12560,
-          LuxPrice: 14350
-        }
-      ],
-      markers: [
-        {
-          station: "Astana",
-          position: {
-            latitude: 51.169392,
-            longitude: 71.449074
-          }
-        },
-        {
-          station: "Karaganda",
-          position: {
-            latitude: 49.8333282,
-            longitude: 73.165802
-          }
-        },
-        {
-          station: "Jezkazgan",
-          position: {
-            latitude: 47.78333,
-            longitude: 67.7
-          }
-        },
-        {
-          station: "Balkash",
-          position: {
-            latitude: 46.8481,
-            longitude: 74.995
-          }
-        },
-        {
-          station: "Shu",
-          position: {
-            latitude: 45.890325,
-            longitude: 73.070651
-          }
-        },
-        {
-          station: "Almaty",
-          position: {
-            latitude: 43.238949,
-            longitude: 76.889709
-          }
-        },
-        {
-          station: "Taraz",
-          position: {
-            latitude: 42.896088,
-            longitude: 71.39843
-          }
-        },
-        {
-          station: "Shymkent",
-          position: {
-            latitude: 42.340782,
-            longitude: 69.596329
-          }
-        },
-        {
-          station: "Kyzylorda",
-          position: {
-            latitude: 44.8528,
-            longitude: 65.5092
-          }
+          from: "Astana",
+          to: "Almaty",
+          DepartureTime: "12-12-2019",
+          ArrivalTime: "12-12-2019"
         }
       ]
     };
-=======
-import MainMap from '../components/MainMap.vue'
-import ScheduleTable from '../components/ScheduleTable.vue'
-import TrainInfo from '../components/TrainInfo.vue'
-import AutocompleteVue from 'autocomplete-vue'
-import json from '../assets/kz.json'
-
-export default {
-    components:{
-        MainMap,
-        ScheduleTable,
-        TrainInfo,
-        'autocomplete-vue': AutocompleteVue
-    },
-  data() {
-    return {
-        kzCities: json,
-        stationFrom: '',
-        stationTo: '',
-        Datee: null,
-        showSchedule: false,  
-        allSchedule: true,
-        travelInstance: false,
-        passSchedule: [],
-        schedules:[
-                    {
-                      TravelInstanceID: 1,
-                      TrainName: 'ABC',
-                      TrainType: ['talgo', 'lux'],
-                      from: 'Astana',
-                      to: 'Almaty',
-                      DepartureTime: '12-12-2019',
-                      ArrivalTime: '12-12-2019',
-                    },
-                    {
-                      TravelInstanceID: 2,
-                      TrainName: 'ABC',
-                      TrainType: ['talgo', 'lux'],
-                      from: 'Astana',
-                      to: 'Almaty',
-                      DepartureTime: '12-12-2019',
-                      ArrivalTime: '12-12-2019',
-                    }
-                  ]
-    }
->>>>>>> 9f4fa3aca354b14edaf64bbaefdb982a32426b02
   },
   mounted() {
-  
-    var inputs = document.getElementsByClassName('pick-input');
-    for( let i = 0; i < inputs.length; i++ ){
-      inputs[i].style.height = "40px";
-      inputs[i].style.width = "100%";
-      inputs[i].style.padding = "0px 16px";
-    }
-   
     if (localStorage.stationFrom && localStorage.stationTo) {
       this.stationFrom = localStorage.stationFrom;
       this.stationTo = localStorage.stationTo;
     }
-    //   axios.get('http://localhost:8080/databind/api/stations',{
-    //     header:{
-    //       'Access-Control-Allow-Origin': '*',
-    //       "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
-    //       "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    //     }
-    //   })
-    //   .then(response => {
-    //       this.stations = response.data;
-    //   })
-    //   .catch(e => {
-    //       console.log(e);
-    //   })
+    axios
+      .get("http://10.3.30.241:8080/databind/api/stations", {
+        headers: {
+          Authorization:
+            "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJuYXppcnpodW1ha2hhbkBnbWFpbC5jb20iLCJpYXQiOjE1NzQwOTczOTgsInN1YiI6ImxvZ2luIiwiaXNzIjoicm95YWx3YXkiLCJleHAiOjE1NzY3MjcxNDR9.fT21D1IomAggrvcs9Uc0YNbUtcIHtS7T6J-k4e9nHoU"
+        }
+      })
+      .then(response => {
+        this.kzCities = response.data;
+        console.log(this.kzCities);
+
+        console.log("success");
+      })
+      .catch(e => {
+        console.log(e);
+      });
   },
   methods: {
     selectFrom(event) {
@@ -382,33 +204,36 @@ export default {
       this.Datee = val;
     },
     showSchedules() {
+      console.log(this.stationFrom);
       this.showSchedule = true;
-      // location.reload();
-      //   if(this.stationFrom && this.stationTo && this.Date){
-      //       axios.get('http://localhost:8080/databind/api/schedules?from='+ this.stationFrom + '&to=' + this.stationTo + '&date=' + this.Date,{
-      //         header:{
-      //           'Access-Control-Allow-Origin': '*',
-      //           "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
-      //           "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-      //         }
-      //       })
+      //location.reload();
+      //   if (this.stationFrom && this.stationTo && this.Datee) {
+      //     axios
+      //       .get(
+      //         "http://10.3.30.241:8080/databind/api/schedules?from=" +
+      //           this.stationFrom +
+      //           "&to=" +
+      //           this.stationTo +
+      //           "&date=" +
+      //           this.Datee
+      //       )
       //       .then(response => {
-      //           this.schedules = response.data;
-      //           this.showSchedule = true;
-      //           console.log(response.data);
+      //         this.schedules = response.data;
+      //         this.showSchedule = true;
+      //         console.log(response.data);
       //       })
       //       .catch(e => {
-      //           console.log(e);
-      //       })
-      //     }
+      //         console.log(e);
+      //       });
+      //   }
     },
-    showTravelInstance(selectSchedule){
+    showTravelInstance(selectSchedule) {
       this.travelInstance = true;
-      this.passSchedule.push({selectSchedule});
-      if(this.passSchedule.length > 1) this.passSchedule.shift();
+      this.passSchedule.push({ selectSchedule });
+      if (this.passSchedule.length > 1) this.passSchedule.shift();
       this.allSchedule = false;
     },
-    showAllSchedule(){
+    showAllSchedule() {
       this.travelInstance = false;
       this.allSchedule = true;
       this.passSchedule.pop();
@@ -419,21 +244,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-<<<<<<< HEAD
-.home {
-=======
-.pick-station{
-    z-index: 20;
-    position: absolute;
-    overflow: hidden;
-    background: #fff;
-    border: rgba(0,0,0,0.8);
-    border-radius: .25rem;
-    height: 40px;
-    width: 100%;
+.pick-station {
+  z-index: 20;
+  position: absolute;
+  overflow: hidden;
+  background: #fff;
+  border: rgba(0, 0, 0, 0.8);
+  border-radius: 0.25rem;
+  width: 100%;
 }
-.home{
->>>>>>> 9f4fa3aca354b14edaf64bbaefdb982a32426b02
+.home {
   width: 100%;
   height: 945px;
   position: relative;
@@ -471,7 +291,7 @@ export default {
   background-size: cover;
   border-radius: 5px;
   z-index: 20;
-  opacity: 1;   // Change opacity value to see MAP clear and add :hover below
+  opacity: 1; // Change opacity value to see MAP clear and add :hover below
   max-height: 300px;
 }
 // .booking-form:hover {

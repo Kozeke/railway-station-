@@ -3,48 +3,47 @@
     <div class="row">
       <Header></Header>
     </div>
-      <router-view></router-view>
+    <router-view></router-view>
     <div class="row">
       <!-- <Footer></Footer> -->
     </div>
-  </div>    
+  </div>
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import Footer from './components/Footer.vue'
+import Header from "./components/Header.vue";
+import Footer from "./components/Footer.vue";
 export default {
   components: {
     Header,
     Footer
   },
-   data(){
-        return {
-          image: "assets/img/bg-img/hero-1.jpg"
-        }
-    },
+  data() {
+    return {
+      image: "assets/img/bg-img/hero-1.jpg",
+      server: "10.3.30.241"
+    };
+  },
   mounted: function() {
     this.startSlide();
   },
-  methods:{
+  methods: {
     startSlide: function() {
       // console.log('as');
       // console.log(document.querySelector('body'));
       // document.querySelector('body').style = {'background-image': 'url(' + this.image + ')'};
-    },
+    }
   }
-}
+};
 </script>
 
-
 <style>
-  @import './assets/css.scss';
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-    /* background-image: url(assets/img/bg-img/hero-1.jpg);
+@import "./assets/css.scss";
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  /* background-image: url(assets/img/bg-img/hero-1.jpg);
     background-position: center center;
     background-size: cover;
     background-attachment: fixed; */
-  }
-  
+}
 </style>

@@ -9,6 +9,7 @@ import Bookings from "./views/Bookings.vue";
 import Settings from "./views/Settings.vue";
 import EmployeeSchedule from "./views/EmployeeSchedule.vue";
 import Routes from "./views/Routes.vue";
+import Trains from "./views/Trains.vue";
 
 Vue.use(Router);
 
@@ -68,6 +69,11 @@ export default new Router({
       path: "/employeeSchedule",
       name: "EmployeeSchedule",
       component: EmployeeSchedule
+    },
+    {
+      path: "/Trains",
+      name: "Trains",
+      component: Trains
     }
   ]
 });

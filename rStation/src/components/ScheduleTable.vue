@@ -12,14 +12,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="tb1" v-bind:key="schedule.TravelInstanceID" v-for="schedule in schedules">
+        <tr
+          class="tb1"
+          v-bind:key="schedule.TravelInstanceID"
+          v-for="schedule in schedules"
+        >
           <td>
             <div class="trainInfo">
-              <div class="trainNum">{{schedule.TrainName}}</div>
+              <div class="trainNum">{{ schedule.TrainName }}</div>
               <div>
                 <a href="#">Описание</a>
               </div>
-              <div class="trainDir">{{schedule.TrainFrom}}->{{schedule.TrainTo}}</div>
+              <div class="trainDir">
+                {{ schedule.TrainFrom }}->{{ schedule.TrainTo }}
+              </div>
               <div>
                 <a href="#">Маршрут поезда</a>
               </div>
@@ -28,41 +34,57 @@
           <td>
             <div class="Departure">
               <div class="time">21:09</div>
-              <div class="date">{{schedule.DepartureTime}}</div>
-              <div class="clientTo">{{schedule.ClientFrom}}</div>
+              <div :id="schedule.TrainInstanceID + 'dep'" class="date">
+                {{ schedule.DepartureTime }}
+              </div>
+              <div class="clientTo">{{ schedule.ClientFrom }}</div>
               <div class="text">(время местное)</div>
             </div>
           </td>
           <td>
-            <div class="tm">14ч 21м</div>
+            <div class="tm">
+              {{ timeInWay(schedule) }}
+            </div>
             <div class="line"></div>
           </td>
           <td>
             <div class="Departure" style="text-align:right">
               <div class="time">20:09</div>
-              <div class="date">{{schedule.ArrivalTime}}</div>
-              <div class="clientTo">{{schedule.ClientTo}}</div>
+              <div :id="schedule.TrainInstanceID + 'arriv'" class="date">
+                {{ schedule.ArrivalTime }}
+              </div>
+              <div class="clientTo">{{ schedule.ClientTo }}</div>
               <div class="text">(время местное)</div>
             </div>
           </td>
           <td>
             <div class="type">
               <div>Люкс: от</div>
-              <div style="font-weight:bold">{{schedule.LuxPrice}} KZT</div>
+              <div style="font-weight:bold">11989 KZT</div>
             </div>
             <div class="type">
               <div>Купэ: от</div>
-              <div style="font-weight:bold">{{schedule.KupePrice}} KZT</div>
+              <div style="font-weight:bold">11989 KZT</div>
             </div>
           </td>
           <td>
             <div>
               мест:12
-              <button class="button" v-on:click="$parent.showTravelInstance(schedule)">Выбрать</button>
+              <button
+                class="button"
+                v-on:click="TravelInstance(schedule.TravelInstanceID)"
+              >
+                Выбрать
+              </button>
             </div>
             <div>
               мест:32
-              <button class="button" v-on:click="$parent.showTravelInstance(schedule)">Выбрать</button>
+              <button
+                class="button"
+                v-on:click="$parent.showTravelInstance(schedule)"
+              >
+                Выбрать
+              </button>
             </div>
           </td>
         </tr>
@@ -79,6 +101,8 @@ export default {
     return {
       selected: [],
       TravelInstance: false,
+      NumVagon: [1, 2, 3, 4],
+
       firstName: null,
       lastName: null,
       agentName: null,
@@ -87,13 +111,31 @@ export default {
       newPass: null
     };
   },
-  mounted() {
-    
-  },
+  mounted() {},
   methods: {
     TrainInstance() {
       this.TravelInstance = !this.TravelInstance;
       console.log(this.TravelInstance);
+    },
+    TravelInstance(id) {
+      axios
+        .get("http://10.3.30.241:8080/databind/api/schedules?id=" + id)
+        .then(response => {
+          this.schedules = response.data;
+          this.showSchedule = true;
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    timeInWay(schedule) {
+      var depTime = document.getElementById(schedule.TravelInstanceID + "dep")
+        .innerHTML;
+      var arrivTime = document.getElementById(
+        schedule.TravelInstanceID + "arriv"
+      ).innerHTML;
+      console.log(depTime, arrivTime);
     }
   },
   computed: {}
@@ -107,7 +149,7 @@ export default {
   background: #fff;
   position: relative;
   z-index: 20;
-  opacity: 1;  // Change opacity value to see MAP clear and add :hover below
+  opacity: 1; // Change opacity value to see MAP clear and add :hover below
   width: 70%;
 }
 table th {
