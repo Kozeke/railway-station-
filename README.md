@@ -1,8 +1,8 @@
-Front side of Railway Station Project
-
+Railway Station Project
+Project of railway station
 ###### Clone repository: 
 ```
-git clone https://github.com/Dake011/rStation.git
+git clone https://github.com/Kozeke/railway-station-.git
 ```
 ###### Make sure to install npm and node, please go to the link https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
@@ -18,3 +18,4 @@ npm run serve
 #build Production 
 npm run build
 ```
+
